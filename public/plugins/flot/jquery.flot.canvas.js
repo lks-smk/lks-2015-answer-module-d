@@ -1,33 +1,33 @@
 /* Flot plugin for drawing all elements of a plot on the canvas.
 
-Copyright (c) 2007-2013 IOLA and Ole Laursen.
-Licensed under the MIT license.
+ Copyright (c) 2007-2013 IOLA and Ole Laursen.
+ Licensed under the MIT license.
 
-Flot normally produces certain elements, like axis labels and the legend, using
-HTML elements. This permits greater interactivity and customization, and often
-looks better, due to cross-browser canvas text inconsistencies and limitations.
+ Flot normally produces certain elements, like axis labels and the legend, using
+ HTML elements. This permits greater interactivity and customization, and often
+ looks better, due to cross-browser canvas text inconsistencies and limitations.
 
-It can also be desirable to render the plot entirely in canvas, particularly
-if the goal is to save it as an image, or if Flot is being used in a context
-where the HTML DOM does not exist, as is the case within Node.js. This plugin
-switches out Flot's standard drawing operations for canvas-only replacements.
+ It can also be desirable to render the plot entirely in canvas, particularly
+ if the goal is to save it as an image, or if Flot is being used in a context
+ where the HTML DOM does not exist, as is the case within Node.js. This plugin
+ switches out Flot's standard drawing operations for canvas-only replacements.
 
-Currently the plugin supports only axis labels, but it will eventually allow
-every element of the plot to be rendered directly to canvas.
+ Currently the plugin supports only axis labels, but it will eventually allow
+ every element of the plot to be rendered directly to canvas.
 
-The plugin supports these options:
+ The plugin supports these options:
 
-{
-    canvas: boolean
-}
+ {
+ canvas: boolean
+ }
 
-The "canvas" option controls whether full canvas drawing is enabled, making it
-possible to toggle on and off. This is useful when a plot uses HTML text in the
-browser, but needs to redraw with canvas text when exporting as an image.
+ The "canvas" option controls whether full canvas drawing is enabled, making it
+ possible to toggle on and off. This is useful when a plot uses HTML text in the
+ browser, but needs to redraw with canvas text when exporting as an image.
 
-*/
+ */
 
-(function($) {
+(function ($) {
 
 	var options = {
 		canvas: true
@@ -49,13 +49,13 @@ browser, but needs to redraw with canvas text when exporting as an image.
 
 		if (render == null) {
 			getTextInfo = Canvas.prototype.getTextInfo,
-			addText = Canvas.prototype.addText,
-			render = Canvas.prototype.render;
+				addText = Canvas.prototype.addText,
+				render = Canvas.prototype.render;
 		}
 
 		// Finishes rendering the canvas, including overlaid text
 
-		Canvas.prototype.render = function() {
+		Canvas.prototype.render = function () {
 
 			if (!plot.getOptions().canvas) {
 				return render.call(this);
@@ -144,7 +144,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 		//     y: Y coordinate at which to draw the text.
 		// }
 
-		Canvas.prototype.getTextInfo = function(layer, text, font, angle, width) {
+		Canvas.prototype.getTextInfo = function (layer, text, font, angle, width) {
 
 			if (!plot.getOptions().canvas) {
 				return getTextInfo.call(this, layer, text, font, angle, width);
@@ -263,7 +263,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 
 		// Adds a text string to the canvas text overlay.
 
-		Canvas.prototype.addText = function(layer, x, y, text, font, angle, width, halign, valign) {
+		Canvas.prototype.addText = function (layer, x, y, text, font, angle, width, halign, valign) {
 
 			if (!plot.getOptions().canvas) {
 				return addText.call(this, layer, x, y, text, font, angle, width, halign, valign);

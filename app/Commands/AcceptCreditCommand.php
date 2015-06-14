@@ -16,36 +16,36 @@ namespace App\Commands;
  */
 class AcceptCreditCommand extends Command {
 
-	public $requestId;
-	public $acceptBy;
+    public $requestId;
+    public $acceptBy;
 
-	protected $rules = ['requestId' => 'required'];
+    protected $rules = ['requestId' => 'required'];
 
-	/**
-	 * @param string $requestId
-	 * @param string $acceptBy
-	 */
-	public function __construct($requestId, $acceptBy) {
+    /**
+     * @param string $requestId
+     * @param string $acceptBy
+     */
+    public function __construct($requestId, $acceptBy) {
 
-		$this->requestId    = $requestId;
-		$this->acceptBy     = $acceptBy;
+        $this->requestId = $requestId;
+        $this->acceptBy  = $acceptBy;
 
-		$this->validate();
-	}
+        $this->validate();
+    }
 
-	/**
-	 * Serialize command
-	 *
-	 * @return array
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function serialize() {
+    /**
+     * Serialize command
+     *
+     * @return array
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function serialize() {
 
-		return [
+        return [
 
-			'requestId' => $this->requestId,
-			'acceptBy'  => $this->acceptBy
-		];
-	}
+            'requestId' => $this->requestId,
+            'acceptBy'  => $this->acceptBy
+        ];
+    }
 }

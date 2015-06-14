@@ -9,6 +9,7 @@
  */
 
 namespace App\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -17,25 +18,25 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class LoginRequest extends FormRequest {
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array
-	 */
-	public function rules() {
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules() {
 
-		return [
-			'email' => 'required', 'password' => 'required',
-		];
-	}
+        return [
+            'email' => 'required', 'password' => 'required',
+        ];
+    }
 
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize() {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize() {
 
-		return true;
-	}
+        return true;
+    }
 }

@@ -9,6 +9,7 @@
  */
 
 namespace App\Handlers\Events;
+
 use App\Events\CreditWasAccepted;
 
 /**
@@ -17,17 +18,17 @@ use App\Events\CreditWasAccepted;
  */
 class CreditWasAcceptedEventHandler {
 
-	use CreditMailer;
+    use CreditMailer;
 
-	/**
-	 * Handler when credit was accepted
-	 *
-	 * @param CreditWasAccepted $event
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function handle(CreditWasAccepted $event) {
+    /**
+     * Handler when credit was accepted
+     *
+     * @param CreditWasAccepted $event
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function handle(CreditWasAccepted $event) {
 
-		$this->mail($event->getApplication(), $event->getMessage());
-	}
+        $this->mail($event->getApplication(), $event->getMessage());
+    }
 }

@@ -10,7 +10,7 @@ var app = angular.module('koperasi', ['ngRoute', 'koperasi.ui', 'koperasi.data']
  *
  * Register routing and init lazy loading for controller
  */
-app.config(['$routeProvider', '$controllerProvider',  function($routeProvider, $controllerProvider) {
+app.config(['$routeProvider', '$controllerProvider', function ($routeProvider, $controllerProvider) {
 
 	app.registerCtrl = $controllerProvider.register;
 
@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$controllerProvider',  function($routeProvider, $
 
 		return {
 
-			load: function() {
+			load: function () {
 
 				$.getScript('app/controllers/' + name + '.js');
 			}
@@ -65,7 +65,7 @@ app.config(['$routeProvider', '$controllerProvider',  function($routeProvider, $
 	});
 }]);
 
-app.controller('sideBarController', function($scope, $route) {
+app.controller('sideBarController', function ($scope, $route) {
 
 	$scope.$route = $route;
 });

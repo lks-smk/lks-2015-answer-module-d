@@ -9,8 +9,9 @@
  */
 
 namespace App\Entities;
-use Illuminate\Database\Eloquent\Model;
+
 use App\Repositories\Repository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -19,233 +20,233 @@ use Illuminate\Support\Facades\Validator;
  */
 abstract class Entity extends Model {
 
-	/**
-	 * Entity validation
-	 *
-	 * @var array
-	 */
-	protected $rules = [];
+    /**
+     * Entity validation
+     *
+     * @var array
+     */
+    protected $rules = [];
 
-	/**
-	 * Column mapping
-	 *
-	 * @var array
-	 */
-	protected $maps = [];
+    /**
+     * Column mapping
+     *
+     * @var array
+     */
+    protected $maps = [];
 
-	/**
-	 * Eager loading relationship
-	 *
-	 * @var array
-	 */
-	protected $eagerLoads = [];
+    /**
+     * Eager loading relationship
+     *
+     * @var array
+     */
+    protected $eagerLoads = [];
 
-	/**
-	 * Disable timestamp on database table
-	 *
-	 * @var boolean
-	 */
-	public $timestamps = false;
+    /**
+     * Disable timestamp on database table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
 
-	/**
-	 * @param array $data
-	 *
-	 * @return array
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>\
-	 */
-	protected function hydrateToOriginal(array $data) {
+    /**
+     * @param array $data
+     *
+     * @return array
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>\
+     */
+    protected function hydrateToOriginal(array $data) {
 
-		$mapped = array();
+        $mapped = [];
 
-		foreach($data as $field => $value) {
+        foreach ($data as $field => $value) {
 
-			if (isset($this->maps[$field])) {
+            if (isset($this->maps[ $field ])) {
 
-				$field = $this->maps[$field];
+                $field = $this->maps[ $field ];
 
-				if (in_array($field, $this->getGuarded())) {
+                if (in_array($field, $this->getGuarded())) {
 
-					continue;
-				}
+                    continue;
+                }
 
-				$mapped[$field] = $value;
-			}
+                $mapped[ $field ] = $value;
+            }
 
-			$mapped[$field] = $value;
-		}
+            $mapped[ $field ] = $value;
+        }
 
-		return $mapped;
-	}
+        return $mapped;
+    }
 
-	/**
-	 * Lazy loading belong to relation.
-	 *
-	 * @param string        $class
-	 * @param string        $field
-	 * @param string        $from
-	 * @param string|null   $to
-	 *
-	 * @return Model
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	protected function lazyBelongTo($class, $field, $from, $to = null) {
+    /**
+     * Lazy loading belong to relation.
+     *
+     * @param string      $class
+     * @param string      $field
+     * @param string      $from
+     * @param string|null $to
+     *
+     * @return Model
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    protected function lazyBelongTo($class, $field, $from, $to = null) {
 
-		$to = $to ?: $from;
+        $to = $to ?: $from;
 
-		if ( ! isset($this->relations[$field])) {
+        if (!isset($this->relations[ $field ])) {
 
-			$relation = $this->belongsTo($class, $from, $to);
+            $relation = $this->belongsTo($class, $from, $to);
 
-			$this->relations[$field] = $relation->getResults();
-		}
+            $this->relations[ $field ] = $relation->getResults();
+        }
 
-		return $this->relations[$field];
-	}
+        return $this->relations[ $field ];
+    }
 
-	/**
-	 * Lazy loading has many relationship
-	 *
-	 * @param string $class
-	 * @param string $field
-	 *
-	 * @return Repository
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	protected function lazyHasMany($class, $field) {
+    /**
+     * Lazy loading has many relationship
+     *
+     * @param string $class
+     * @param string $field
+     *
+     * @return Repository
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    protected function lazyHasMany($class, $field) {
 
-		if ( ! isset($this->relations[$field])) {
+        if (!isset($this->relations[ $field ])) {
 
-			$this->relations[$field] = $class::make(array($field => $this->attributes[$field]));
-		}
+            $this->relations[ $field ] = $class::make([$field => $this->attributes[ $field ]]);
+        }
 
-		return $this->relations[$field];
-	}
+        return $this->relations[ $field ];
+    }
 
-	/**
-	 * Add custom mapping on getter
-	 *
-	 * @param string $key
-	 *
-	 * @return mixed
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function __get($key) {
+    /**
+     * Add custom mapping on getter
+     *
+     * @param string $key
+     *
+     * @return mixed
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function __get($key) {
 
-		if (isset($this->maps[$key])) {
+        if (isset($this->maps[ $key ])) {
 
-			$key = $this->maps[$key];
-		}
+            $key = $this->maps[ $key ];
+        }
 
-		return parent::__get($key);
-	}
+        return parent::__get($key);
+    }
 
-	/**
-	 * Add custom mapping on setter
-	 *
-	 * @param string $key
-	 * @param mixed  $value
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function __set($key, $value) {
+    /**
+     * Add custom mapping on setter
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function __set($key, $value) {
 
-		if (isset($this->maps[$key])) {
+        if (isset($this->maps[ $key ])) {
 
-			$key = $this->maps[$key];
-		}
+            $key = $this->maps[ $key ];
+        }
 
-		parent::__set($key, $value);
-	}
+        parent::__set($key, $value);
+    }
 
-	/**
-	 * @param array $attributes
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function validate(array $attributes) {
+    /**
+     * @param array $attributes
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function validate(array $attributes) {
 
-		$validator = Validator::make($attributes, $this->rules);
+        $validator = Validator::make($attributes, $this->rules);
 
-		if ($validator->fails()) {
+        if ($validator->fails()) {
 
-			EntityException::errorValidate($validator->errors()->all());
-		}
-	}
+            EntityException::errorValidate($validator->errors()->all());
+        }
+    }
 
-	/**
-	 * @param array $attributes
-	 *
-	 * @return $this
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function fill(array $attributes) {
+    /**
+     * @param array $attributes
+     *
+     * @return $this
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function fill(array $attributes) {
 
-		$attributes = $this->hydrateToOriginal($attributes);
+        $attributes = $this->hydrateToOriginal($attributes);
 
-		return parent::fill($attributes);
-	}
+        return parent::fill($attributes);
+    }
 
-	/**
-	 * @param array $options
-	 *
-	 * @return bool
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function save(array $options = array()) {
+    /**
+     * @param array $options
+     *
+     * @return bool
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function save(array $options = []) {
 
-		$this->validate($this->attributes);
+        $this->validate($this->attributes);
 
-		return parent::save($options);
-	}
+        return parent::save($options);
+    }
 
-	/**
-	 * @param array $attributes
-	 *
-	 * @return bool|int
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function update(array $attributes = array()) {
+    /**
+     * @param array $attributes
+     *
+     * @return bool|int
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function update(array $attributes = []) {
 
-		$attributes = $this->hydrateToOriginal($attributes);
+        $attributes = $this->hydrateToOriginal($attributes);
 
-		return parent::update($attributes);
-	}
+        return parent::update($attributes);
+    }
 
-	/**
-	 * Serialize model to array
-	 *
-	 * @return array
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function toArray() {
+    /**
+     * Serialize model to array
+     *
+     * @return array
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function toArray() {
 
-		$attributes = array();
-		$maps       = array_flip($this->maps);
+        $attributes = [];
+        $maps       = array_flip($this->maps);
 
-		//Trigger relationship
-		foreach($this->eagerLoads as $method) {
+        //Trigger relationship
+        foreach ($this->eagerLoads as $method) {
 
-			$this->{$method}();
-		}
+            $this->{$method}();
+        }
 
-		foreach(parent::toArray() as $field => $value) {
+        foreach (parent::toArray() as $field => $value) {
 
-			if (isset($maps[$field])) {
+            if (isset($maps[ $field ])) {
 
-				$field = $maps[$field];
-			}
+                $field = $maps[ $field ];
+            }
 
-			$attributes[$field] = $value;
-		}
+            $attributes[ $field ] = $value;
+        }
 
-		return $attributes;
-	}
+        return $attributes;
+    }
 }

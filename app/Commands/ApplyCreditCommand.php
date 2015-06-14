@@ -16,56 +16,57 @@ namespace App\Commands;
  */
 class ApplyCreditCommand extends Command {
 
-	public $loanAmount;
-	public $tenor;
-	public $fullName;
-	public $email;
-	public $phone;
+    public $loanAmount;
+    public $tenor;
+    public $fullName;
+    public $email;
+    public $phone;
 
-	/**
-	 * Command rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
+    /**
+     * Command rules
+     *
+     * @var array
+     */
+    protected $rules
+        = [
 
-		'loanAmount'    => 'required',
-	    'tenor'         => 'required',
-	    'fullName'      => 'required',
-	    'email'         => 'required',
-	    'phone'         => 'required'
-	];
+            'loanAmount' => 'required',
+            'tenor'      => 'required',
+            'fullName'   => 'required',
+            'email'      => 'required',
+            'phone'      => 'required'
+        ];
 
-	/**
-	 * @param double $loanAmount
-	 * @param int    $tenor
-	 * @param string $fullName
-	 * @param string $email
-	 * @param string $phone
-	 */
-	public function __construct($loanAmount, $tenor, $fullName, $email, $phone) {
+    /**
+     * @param double $loanAmount
+     * @param int    $tenor
+     * @param string $fullName
+     * @param string $email
+     * @param string $phone
+     */
+    public function __construct($loanAmount, $tenor, $fullName, $email, $phone) {
 
-		$this->loanAmount   = $loanAmount;
-		$this->tenor        = $tenor;
-		$this->fullName     = $fullName;
-		$this->email        = $email;
-		$this->phone        = $phone;
+        $this->loanAmount = $loanAmount;
+        $this->tenor      = $tenor;
+        $this->fullName   = $fullName;
+        $this->email      = $email;
+        $this->phone      = $phone;
 
-		$this->validate();
-	}
+        $this->validate();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function serialize() {
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize() {
 
-		return [
+        return [
 
-			'loanAmount'    => $this->loanAmount,
-		    'tenor'         => $this->tenor,
-		    'fullName'      => $this->fullName,
-		    'email'         => $this->email,
-		    'phone'         => $this->phone
-		];
-	}
+            'loanAmount' => $this->loanAmount,
+            'tenor'      => $this->tenor,
+            'fullName'   => $this->fullName,
+            'email'      => $this->email,
+            'phone'      => $this->phone
+        ];
+    }
 }

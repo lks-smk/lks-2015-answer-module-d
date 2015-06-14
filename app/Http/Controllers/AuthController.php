@@ -9,6 +9,7 @@
  */
 
 namespace App\Http\Controllers;
+
 use App\Entities\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Auth\Guard;
@@ -19,71 +20,73 @@ use Illuminate\Contracts\Auth\Guard;
  */
 class AuthController extends Controller {
 
-	/**
-	 * the model instance
-	 * @var User
-	 */
-	protected $user;
+    /**
+     * the model instance
+     *
+     * @var User
+     */
+    protected $user;
 
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
 
-	/**
-	 * @param Guard $auth
-	 * @param User  $user
-	 */
-	public function __construct(Guard $auth, User $user) {
+    /**
+     * @param Guard $auth
+     * @param User  $user
+     */
+    public function __construct(Guard $auth, User $user) {
 
-		$this->auth = $auth;
-		$this->user = $user;
+        $this->auth = $auth;
+        $this->user = $user;
 
-		$this->middleware('guest', ['except' => ['getLogout']]);
-	}
+        $this->middleware('guest', ['except' => ['getLogout']]);
+    }
 
-	/**
-	 * Show login form
-	 *
-	 * @return \Illuminate\View\View
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getLogin() {
+    /**
+     * Show login form
+     *
+     * @return \Illuminate\View\View
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getLogin() {
 
-		return view('auth.login');
-	}
+        return view('auth.login');
+    }
 
-	/**
-	 * @param LoginRequest $request
-	 *
-	 * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function postLogin(LoginRequest $request)
-	{
-		if ($this->auth->attempt($request->only('email', 'password')))
-		{
-			return redirect('/#/dashboard');
-		}
+    /**
+     * @param LoginRequest $request
+     *
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function postLogin(LoginRequest $request) {
 
-		return redirect('/auth/login')->withErrors([
-			'email' => 'The credentials you entered did not match our records. Try again?',
-		]);
-	}
+        if ($this->auth->attempt($request->only('email', 'password'))) {
+            return redirect('/#/dashboard');
+        }
 
-	/**
-	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getLogout()
-	{
-		$this->auth->logout();
+        return redirect('/auth/login')->withErrors(
+            [
+                'email' => 'The credentials you entered did not match our records. Try again?',
+            ]
+        );
+    }
 
-		return redirect('/');
-	}
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getLogout() {
+
+        $this->auth->logout();
+
+        return redirect('/');
+    }
 }

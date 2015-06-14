@@ -1,7 +1,8 @@
 /**
  * Croatian localisation
  */
-;(function($){
+;
+(function ($) {
 	$.fn.datepicker.dates['hr'] = {
 		days: ["Nedjelja", "Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak", "Subota", "Nedjelja"],
 		daysShort: ["Ned", "Pon", "Uto", "Sri", "Čet", "Pet", "Sub", "Ned"],

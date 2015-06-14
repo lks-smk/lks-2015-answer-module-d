@@ -16,13 +16,13 @@ namespace App\Entities;
  */
 class EntityException extends \InvalidArgumentException {
 
-	/**
-	 * @param $errors
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public static function errorValidate($errors) {
+    /**
+     * @param $errors
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public static function errorValidate($errors) {
 
-		throw new EntityException(implode(' ', $errors));
-	}
+        throw new EntityException(implode(' ', $errors));
+    }
 }

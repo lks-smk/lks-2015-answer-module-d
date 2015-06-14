@@ -5,46 +5,44 @@ use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate {
 
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
 
-	/**
-	 * Create a new filter instance.
-	 *
-	 * @param  Guard  $auth
-	 * @return void
-	 */
-	public function __construct(Guard $auth)
-	{
-		$this->auth = $auth;
-	}
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard $auth
+     *
+     * @return void
+     */
+    public function __construct(Guard $auth) {
 
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
-		if ($this->auth->guest())
-		{
-			if ($request->ajax())
-			{
-				return $next($request);
-			}
-			else
-			{
-				return redirect()->guest('auth/login');
-			}
-		}
+        $this->auth = $auth;
+    }
 
-		return $next($request);
-	}
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
+     *
+     * @return mixed
+     */
+    public function handle($request, Closure $next) {
+
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
+                return $next($request);
+            } else {
+                return redirect()->guest('auth/login');
+            }
+        }
+
+        return $next($request);
+    }
 
 }

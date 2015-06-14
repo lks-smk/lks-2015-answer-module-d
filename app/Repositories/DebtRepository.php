@@ -9,6 +9,7 @@
  */
 
 namespace App\Repositories;
+
 use App\Entities\Debt;
 
 /**
@@ -17,5 +18,5 @@ use App\Entities\Debt;
  */
 class DebtRepository extends Repository {
 
-	protected $modelClass = Debt::class;
+    protected $modelClass = Debt::class;
 }

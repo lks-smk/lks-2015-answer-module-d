@@ -9,6 +9,7 @@
  */
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use App\Repositories\ApplicationRepositoryInterface;
 
@@ -18,23 +19,23 @@ use App\Repositories\ApplicationRepositoryInterface;
  */
 class TopApplicationController extends Controller {
 
-	protected $repo;
+    protected $repo;
 
-	/**
-	 * @param ApplicationRepositoryInterface $repo
-	 */
-	public function __construct(ApplicationRepositoryInterface $repo) {
+    /**
+     * @param ApplicationRepositoryInterface $repo
+     */
+    public function __construct(ApplicationRepositoryInterface $repo) {
 
-		$this->repo = $repo;
-	}
+        $this->repo = $repo;
+    }
 
-	/**
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function index() {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function index() {
 
-		return response()->json($this->repo->findTopApprovedApplications());
-	}
+        return response()->json($this->repo->findTopApprovedApplications());
+    }
 }

@@ -9,6 +9,7 @@
  */
 
 namespace App\Handlers\Commands;
+
 use App\Commands\ApplyCreditCommand;
 use App\Entities\Application;
 use App\Events\CreditWasApplied;
@@ -19,22 +20,22 @@ use App\Events\CreditWasApplied;
  */
 class ApplyCreditCommandHandler extends CommandHandler {
 
-	/**
-	 * Handler for apply credit
-	 *
-	 * @param ApplyCreditCommand $command
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function handle(ApplyCreditCommand $command) {
+    /**
+     * Handler for apply credit
+     *
+     * @param ApplyCreditCommand $command
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function handle(ApplyCreditCommand $command) {
 
-		$application = Application::applyCredit($command->serialize());
+        $application = Application::applyCredit($command->serialize());
 
-		$this->dispatcher->fire(
-			new CreditWasApplied(
-				$application,
-				sprintf('Your application with request id %s has been submitted.', $application->requestId)
-			)
-		);
-	}
+        $this->dispatcher->fire(
+            new CreditWasApplied(
+                $application,
+                sprintf('Your application with request id %s has been submitted.', $application->requestId)
+            )
+        );
+    }
 }

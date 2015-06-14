@@ -10,7 +10,7 @@ app.constant('X_CSRF_TOKEN', angular.element('meta[name=X-CSRF-TOKEN]').attr('co
 /**
  * Factory Credit Application
  */
-app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
+app.factory('creditFactory', ['$http', function ($http, X_CSRF_TOKEN) {
 
 	return {
 
@@ -20,7 +20,7 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 * @param credit
 		 * @returns {*}
 		 */
-		apply: function(credit) {
+		apply: function (credit) {
 
 			credit = credit || {};
 			credit._token = X_CSRF_TOKEN;
@@ -34,9 +34,9 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 * @param requestId
 		 * @returns {*}
 		 */
-		accept: function(requestId) {
+		accept: function (requestId) {
 
-			return $http.patch('api/application/' + requestId + '/status/accept', { _token: X_CSRF_TOKEN });
+			return $http.patch('api/application/' + requestId + '/status/accept', {_token: X_CSRF_TOKEN});
 		},
 
 		/**
@@ -45,9 +45,9 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 * @param requestId
 		 * @returns {*}
 		 */
-		reject: function(requestId) {
+		reject: function (requestId) {
 
-			return $http.patch('api/application/' + requestId + '/status/reject', { _token: X_CSRF_TOKEN });
+			return $http.patch('api/application/' + requestId + '/status/reject', {_token: X_CSRF_TOKEN});
 		},
 
 		/**
@@ -55,7 +55,7 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 *
 		 * @returns {*}
 		 */
-		getPendingApplications: function() {
+		getPendingApplications: function () {
 
 			return $http.get('api/application');
 		},
@@ -65,7 +65,7 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 *
 		 * @returns {*}
 		 */
-		getTopApplications: function() {
+		getTopApplications: function () {
 
 			return $http.get('api/application/top');
 		},
@@ -75,7 +75,7 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 *
 		 * @returns {*}
 		 */
-		getStatistic: function() {
+		getStatistic: function () {
 
 			return $http.get('api/application/stats');
 		},
@@ -88,16 +88,16 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 * @param sort
 		 * @returns {*}
 		 */
-		getHistory: function(status, date, sort) {
+		getHistory: function (status, date, sort) {
 
 			return $http.get('api/application/history', {
 
 				params: {
-					status              : status,
-					"date[start]"       : date.start,
-					"date[end]"         : date.end,
-					"sort[field]"       : sort.field,
-					"sort[direction]"   : sort.direction
+					status: status,
+					"date[start]": date.start,
+					"date[end]": date.end,
+					"sort[field]": sort.field,
+					"sort[direction]": sort.direction
 				}
 			});
 		},
@@ -108,7 +108,7 @@ app.factory('creditFactory', ['$http', function($http, X_CSRF_TOKEN) {
 		 * @param requestId
 		 * @returns {*}
 		 */
-		getDebt: function(requestId) {
+		getDebt: function (requestId) {
 
 			return $http.get('api/application/' + requestId);
 		}

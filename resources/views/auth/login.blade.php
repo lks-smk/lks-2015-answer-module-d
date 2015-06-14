@@ -5,13 +5,13 @@
     <title>KoperasiLKS | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- Font Awesome Icons -->
-    <link href="../bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
-    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <!-- iCheck -->
-    <link href="../plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,7 +24,8 @@
 <div class="login-box">
     <div class="login-logo">
         <b>Koperasi</b>LKS
-    </div><!-- /.login-logo -->
+    </div>
+    <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
         @if (count($errors) > 0)
@@ -38,9 +39,10 @@
             </div>
         @endif
         <form action="/auth/login" method="post">
-            <input type="hidden" name="_token" value="[[ csrf_token() ]]" />
+            <input type="hidden" name="_token" value="[[ csrf_token() ]]"/>
+
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Email" name="email" value="[[ old('email') ]]" />
+                <input type="text" class="form-control" placeholder="Email" name="email" value="[[ old('email') ]]"/>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -50,16 +52,20 @@
             <div class="row">
                 <div class="col-xs-8">
                     <a href="/">Simulation</a>
-                </div><!-- /.col -->
+                </div>
+                <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div><!-- /.col -->
+                </div>
+                <!-- /.col -->
             </div>
         </form>
 
 
-    </div><!-- /.login-box-body -->
-</div><!-- /.login-box -->
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
 
 <!-- jQuery 2.1.3 -->
 <script src="../plugins/jQuery/jQuery-2.1.3.min.js"></script>

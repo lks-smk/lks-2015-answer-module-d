@@ -9,6 +9,7 @@
  */
 
 namespace App\Http\Controllers\Api;
+
 use App\Commands\ApplyCreditCommand;
 use App\Entities\Application;
 use App\Http\Controllers\Controller;
@@ -22,68 +23,67 @@ use Illuminate\Http\Request;
  */
 class ApplicationController extends Controller {
 
-	/**
-	 * @var ApplicationRepository
-	 */
-	protected $repo;
+    /**
+     * @var ApplicationRepository
+     */
+    protected $repo;
 
-	/**
-	 * Initialize new instance
-	 */
-	public function __construct(ApplicationRepositoryInterface $repo) {
+    /**
+     * Initialize new instance
+     */
+    public function __construct(ApplicationRepositoryInterface $repo) {
+        
+        $this->repo = $repo;
+    }
 
-		$this->repo = $repo;
-	}
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function index() {
 
-	/**
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function index() {
+        return response()->json($this->repo->findPendingApplications());
+    }
 
-		return response()->json($this->repo->findPendingApplications());
-	}
+    /**
+     * @param string $requestId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function show($requestId) {
 
-	/**
-	 * @param string $requestId
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function show($requestId) {
+        /** @var Application $credit */
+        $credit        = $this->repo->findById($requestId);
+        $credit->debts = $credit->debts()->findAll();
 
-		/** @var Application $credit */
-		$credit         = $this->repo->findById($requestId);
-		$credit->debts  = $credit->debts()->findAll();
+        return response()->json($credit);
+    }
 
-		return response()->json($credit);
-	}
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function store(Request $request) {
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function store(Request $request) {
+        $code = 200;
 
-		$code = 200;
+        try {
 
-		try {
+            $this->dispatchFrom(ApplyCreditCommand::class, $request);
 
-			$this->dispatchFrom(ApplyCreditCommand::class, $request);
+            $response = ['success' => true, 'message' => 'Data has been stored.'];
+        } catch (\InvalidArgumentException $e) {
 
-			$response = array('success' => true, 'message' => 'Data has been stored.');
-		}
-		catch(\InvalidArgumentException $e) {
+            $code     = 400;
+            $response = ['success' => false, 'message' => $e->getMessage()];
+        }
 
-			$code       = 400;
-			$response   = array('success' => false, 'message' => $e->getMessage());
-		}
-
-		return response()->json($response, $code);
-	}
+        return response()->json($response, $code);
+    }
 }

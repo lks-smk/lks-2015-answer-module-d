@@ -9,6 +9,7 @@
  */
 
 namespace App\Repositories;
+
 use App\Entities\Entity;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -19,44 +20,44 @@ use Illuminate\Database\Eloquent\Collection;
  */
 interface ApplicationRepositoryInterface extends RepositoryInterface {
 
-	/**
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findPendingApplications();
+    /**
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findPendingApplications();
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Entity
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findPendingApplicationById($id);
+    /**
+     * @param string $id
+     *
+     * @return Entity
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findPendingApplicationById($id);
 
-	/**
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findTopApprovedApplications();
+    /**
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findTopApprovedApplications();
 
-	/**
-	 * @return array
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findApplicationStatistic();
+    /**
+     * @return array
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findApplicationStatistic();
 
-	/**
-	 * @param string $status
-	 * @param array  $dates
-	 * @param array  $sort
-	 *
-	 * @return mixed
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findApplicationHistory($status, array $dates, array $sort);
+    /**
+     * @param string $status
+     * @param array  $dates
+     * @param array  $sort
+     *
+     * @return mixed
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findApplicationHistory($status, array $dates, array $sort);
 }

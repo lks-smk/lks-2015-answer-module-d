@@ -14,7 +14,6 @@
 	max-width: 100% !important;
 }
 
-
 /* Global Event Restyling
 --------------------------------------------------------------------------------------------------*/
 
@@ -27,7 +26,6 @@
 .fc-event .fc-resizer {
 	display: none;
 }
-
 
 /* Table & Day-Row Restyling
 --------------------------------------------------------------------------------------------------*/
@@ -61,7 +59,8 @@ tbody,
 	padding-bottom: 0 !important; /* use a more border-friendly method for this... */
 }
 
-.fc tbody .fc-row .fc-content-skeleton tbody tr:last-child td { /* only works in newer browsers */
+.fc tbody .fc-row .fc-content-skeleton tbody tr:last-child td {
+	/* only works in newer browsers */
 	padding-bottom: 1em; /* ...gives space within the skeleton. also ensures min height in a way */
 }
 
@@ -70,7 +69,6 @@ tbody,
 	   making it look more like 3em. for other browers, it will already be this tall */
 	height: 1em;
 }
-
 
 /* Undo month-view event limiting. Display all events and hide the "more" links
 --------------------------------------------------------------------------------------------------*/
@@ -92,7 +90,6 @@ tbody,
 	display: none; /* never display the "more.." popover in print mode */
 }
 
-
 /* TimeGrid Restyling
 --------------------------------------------------------------------------------------------------*/
 
@@ -108,7 +105,8 @@ tbody,
 
 /* don't display the horizontal lines */
 .fc-slats,
-.fc-time-grid hr { /* this hr is used when height is underused and needs to be filled */
+.fc-time-grid hr {
+	/* this hr is used when height is underused and needs to be filled */
 	display: none !important; /* important overrides inline declaration */
 }
 
@@ -126,7 +124,6 @@ tbody,
 .fc-time-grid .fc-event-container {
 	margin: 0 !important;
 }
-
 
 /* TimeGrid *Event* Restyling
 --------------------------------------------------------------------------------------------------*/
@@ -174,14 +171,14 @@ tbody,
 	content: attr(data-full);
 }
 
-
 /* Vertical Scroller & Containers
 --------------------------------------------------------------------------------------------------*/
 
 /* kill the scrollbars and allow natural height */
 .fc-scroller,
-.fc-day-grid-container,    /* these divs might be assigned height, which we need to cleared */
-.fc-time-grid-container {  /* */
+.fc-day-grid-container, /* these divs might be assigned height, which we need to cleared */
+.fc-time-grid-container {
+	/* */
 	overflow: visible !important;
 	height: auto !important;
 }
@@ -191,7 +188,6 @@ tbody,
 	border: 0 !important;
 	margin: 0 !important;
 }
-
 
 /* Button Controls
 --------------------------------------------------------------------------------------------------*/

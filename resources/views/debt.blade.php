@@ -17,15 +17,18 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">Simulation</h3>
-                </div><!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="loan-amount">Loan Amount</label>
+
                             <div class="input-group">
                                 <span class="input-group-addon">IDR</span>
-                                <input id="loan-amount" value="{{credit.loanAmount|number:2}}" type="text" class="form-control" disabled>
+                                <input id="loan-amount" value="{{credit.loanAmount|number:2}}" type="text"
+                                       class="form-control" disabled>
                             </div>
                         </div>
                         <div class="form-group">
@@ -34,7 +37,8 @@
 
                                 <div class="col-xs-8">
                                     <label for="tenor">Tenor</label>
-                                    <input id="tenor" value="{{credit.tenor+' month'}}" type="text" class="form-control" disabled>
+                                    <input id="tenor" value="{{credit.tenor+' month'}}" type="text" class="form-control"
+                                           disabled>
                                 </div>
                                 <div class="col-xs-4">
                                     <label for="interest-rate">Interest Rate</label>
@@ -44,54 +48,65 @@
                             </div>
 
                         </div>
-                    </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.box-body -->
                 </form>
-            </div><!-- /.box -->
+            </div>
+            <!-- /.box -->
 
 
-        </div><!--/.col (left) -->
+        </div>
+        <!--/.col (left) -->
         <!-- right column -->
         <div class="col-md-6">
             <!-- general form elements disabled -->
             <div class="box box-warning">
                 <div class="box-header">
                     <h3 class="box-title">Apply Credit Simulation</h3>
-                </div><!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
                 <form role="form">
                     <div class="box-body">
 
                         <!-- text input -->
                         <div class="form-group">
                             <label>Fullname</label>
-                            <input type="text" class="form-control" ng-model="credit.fullName" disabled />
+                            <input type="text" class="form-control" ng-model="credit.fullName" disabled/>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label class="control-label" for="email">Email</label>
+
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input type="text" id="email" class="form-control" value="{{ credit.email }}" disabled  />
+                                        <input type="text" id="email" class="form-control" value="{{ credit.email }}"
+                                               disabled/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" >Mobile Phone</label>
+                                    <label class="control-label">Mobile Phone</label>
+
                                     <div class="input-group">
 
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control" value="{{ credit.phone }}" disabled />
+                                        <input type="text" class="form-control" value="{{ credit.phone }}" disabled/>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.box-body -->
                 </form>
-            </div><!-- /.box -->
-        </div><!--/.col (right) -->
-    </div>   <!-- /.row -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
 
     <div class="row">
 
@@ -100,10 +115,12 @@
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Detail Loan Simulation</h3>
+
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div>
-                </div><!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table no-margin">
@@ -127,8 +144,10 @@
 
                             </tbody>
                         </table>
-                    </div><!-- /.table-responsive -->
-                </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
             </div>
         </div>
     </div>

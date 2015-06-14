@@ -2,9 +2,9 @@
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
  * @created     6/12/15
  */
-app.registerCtrl('DashboardController', function($scope, creditFactory, pendingUi, topUi, statsUi) {
+app.registerCtrl('DashboardController', function ($scope, creditFactory, pendingUi, topUi, statsUi) {
 
-	$scope.application = { pending: [], top: [], stats: { approved: 0, rejected: 0, pending: 0 } };
+	$scope.application = {pending: [], top: [], stats: {approved: 0, rejected: 0, pending: 0}};
 
 	/**
 	 * Init ui services
@@ -16,7 +16,7 @@ app.registerCtrl('DashboardController', function($scope, creditFactory, pendingU
 	/**
 	 * Load Pending Applications
 	 */
-	creditFactory.getPendingApplications().success(function(response) {
+	creditFactory.getPendingApplications().success(function (response) {
 
 		pendingUi.load(response);
 	});
@@ -24,7 +24,7 @@ app.registerCtrl('DashboardController', function($scope, creditFactory, pendingU
 	/**
 	 * Load Top Applications
 	 */
-	creditFactory.getTopApplications().success(function(response) {
+	creditFactory.getTopApplications().success(function (response) {
 
 		topUi.load(response);
 	});
@@ -32,7 +32,7 @@ app.registerCtrl('DashboardController', function($scope, creditFactory, pendingU
 	/**
 	 * Load Application statistics
 	 */
-	creditFactory.getStatistic().success(function(response) {
+	creditFactory.getStatistic().success(function (response) {
 
 		statsUi.load(response);
 	});
@@ -42,9 +42,9 @@ app.registerCtrl('DashboardController', function($scope, creditFactory, pendingU
 	 *
 	 * @param requestId
 	 */
-	$scope.application.accept = function(requestId) {
+	$scope.application.accept = function (requestId) {
 
-		creditFactory.accept(requestId).success(function() {
+		creditFactory.accept(requestId).success(function () {
 
 			pendingUi.accept(requestId);
 			statsUi.approveIncrement();
@@ -56,9 +56,9 @@ app.registerCtrl('DashboardController', function($scope, creditFactory, pendingU
 	 *
 	 * @param requestId
 	 */
-	$scope.application.reject = function(requestId) {
+	$scope.application.reject = function (requestId) {
 
-		creditFactory.reject(requestId).success(function() {
+		creditFactory.reject(requestId).success(function () {
 
 			pendingUi.reject(requestId);
 			statsUi.rejectIncrement();

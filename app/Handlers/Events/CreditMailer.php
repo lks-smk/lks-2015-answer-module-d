@@ -9,6 +9,7 @@
  */
 
 namespace App\Handlers\Events;
+
 use App\Entities\Application;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,20 +20,22 @@ use Illuminate\Support\Facades\Mail;
  */
 trait CreditMailer {
 
-	/**
-	 * Mail credit helper
-	 *
-	 * @param Application $application
-	 * @param string      $message
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function mail(Application $application, $message) {
+    /**
+     * Mail credit helper
+     *
+     * @param Application $application
+     * @param string      $message
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function mail(Application $application, $message) {
 
-		Mail::raw($message, function($mail) use (&$application) {
+        Mail::raw(
+            $message, function ($mail) use (&$application) {
 
-			$mail->from('sa@localhost', 'Your Credit Information');
-			$mail->to($application->email);
-		});
-	}
+            $mail->from('sa@localhost', 'Your Credit Information');
+            $mail->to($application->email);
+        }
+        );
+    }
 }

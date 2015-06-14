@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="koperasi">
 <head>
-    <meta name="X-CSRF-TOKEN" content="[[ csrf_token() ]]" />
+    <meta name="X-CSRF-TOKEN" content="[[ csrf_token() ]]"/>
     <meta charset="UTF-8">
     <title>KoperasiLKS | Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
     <!-- Font Awesome Icons -->
-    <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
-    <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
-    <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body class="skin-blue">
 <div class="wrapper">
@@ -53,11 +53,14 @@
         <section class="sidebar">
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li ng-class="{active: $route.current.active == 'simulation'}"><a href="#/"><i class="fa fa-list-alt"></i> Simulation</a></li>
+                <li ng-class="{active: $route.current.active == 'simulation'}"><a href="#/"><i
+                                class="fa fa-list-alt"></i> Simulation</a></li>
                 @if (Auth::check())
                     <li class="header">CONTROL PANEL</li>
-                    <li ng-class="{active: $route.current.active == 'dashboard'}"><a href="#/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    <li ng-class="{active: $route.current.active == 'history'}"><a href="#/history"><i class="fa fa-history"></i> Transaction History</a></li>
+                    <li ng-class="{active: $route.current.active == 'dashboard'}"><a href="#/dashboard"><i
+                                    class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li ng-class="{active: $route.current.active == 'history'}"><a href="#/history"><i
+                                    class="fa fa-history"></i> Transaction History</a></li>
                 @endif
             </ul>
         </section>
@@ -71,10 +74,12 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+        reserved.
     </footer>
 
-</div><!-- ./wrapper -->
+</div>
+<!-- ./wrapper -->
 
 <!-- jQuery 2.1.3 -->
 <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>

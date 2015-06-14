@@ -2,7 +2,7 @@
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
  * @created     6/15/15
  */
-app.registerCtrl('DebtController', function($scope, $routeParams, creditFactory, debtUi) {
+app.registerCtrl('DebtController', function ($scope, $routeParams, creditFactory, debtUi) {
 
 	$scope.credit = {};
 
@@ -12,7 +12,7 @@ app.registerCtrl('DebtController', function($scope, $routeParams, creditFactory,
 	/**
 	 * Load detail and list of debt
 	 */
-	creditFactory.getDebt($routeParams.requestId).success(function(response) {
+	creditFactory.getDebt($routeParams.requestId).success(function (response) {
 
 		debtUi.load(response);
 	});

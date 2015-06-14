@@ -9,6 +9,7 @@
  */
 
 namespace App\Handlers\Commands;
+
 use Illuminate\Events\Dispatcher;
 
 /**
@@ -17,18 +18,18 @@ use Illuminate\Events\Dispatcher;
  */
 abstract class CommandHandler {
 
-	/**
-	 * @var Dispatcher
-	 */
-	protected $dispatcher;
+    /**
+     * @var Dispatcher
+     */
+    protected $dispatcher;
 
-	/**
-	 * Initialize new instance and set event dispatcher.
-	 *
-	 * @param Dispatcher $dispatcher
-	 */
-	public function __construct(Dispatcher $dispatcher) {
+    /**
+     * Initialize new instance and set event dispatcher.
+     *
+     * @param Dispatcher $dispatcher
+     */
+    public function __construct(Dispatcher $dispatcher) {
 
-		$this->dispatcher = $dispatcher;
-	}
+        $this->dispatcher = $dispatcher;
+    }
 }

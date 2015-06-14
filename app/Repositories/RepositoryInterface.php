@@ -9,6 +9,7 @@
  */
 
 namespace App\Repositories;
+
 use App\Entities\Entity;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -19,28 +20,28 @@ use Illuminate\Database\Eloquent\Collection;
  */
 interface RepositoryInterface {
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Entity
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findById($id);
+    /**
+     * @param string $id
+     *
+     * @return Entity
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findById($id);
 
-	/**
-	 * @param array $criteria
-	 *
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function find(array $criteria);
+    /**
+     * @param array $criteria
+     *
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function find(array $criteria);
 
-	/**
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findAll();
+    /**
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findAll();
 }

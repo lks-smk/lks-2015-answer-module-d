@@ -4,35 +4,35 @@ use Illuminate\Support\Facades\Validator;
 
 abstract class Command {
 
-	/**
-	 * Message rules
-	 *
-	 * @var array
-	 */
-	protected $rules = array();
+    /**
+     * Message rules
+     *
+     * @var array
+     */
+    protected $rules = [];
 
-	/**
-	 * Validate command
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	protected function validate() {
+    /**
+     * Validate command
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    protected function validate() {
 
-		$validator = Validator::make($this->serialize(), $this->rules);
+        $validator = Validator::make($this->serialize(), $this->rules);
 
-		if ($validator->fails()) {
+        if ($validator->fails()) {
 
-			throw new \InvalidArgumentException(implode(' ', $validator->errors()->all()));
-		}
-	}
+            throw new \InvalidArgumentException(implode(' ', $validator->errors()->all()));
+        }
+    }
 
-	/**
-	 * Serialize command
-	 *
-	 * @return array
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public abstract function serialize();
+    /**
+     * Serialize command
+     *
+     * @return array
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public abstract function serialize();
 
 }

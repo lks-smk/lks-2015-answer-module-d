@@ -7,7 +7,7 @@ var app = angular.module('koperasi.ui', []);
 /**
  * Pending UI Service
  */
-app.service('pendingUi', function(topUi) {
+app.service('pendingUi', function (topUi) {
 
 	var scope;
 
@@ -16,7 +16,7 @@ app.service('pendingUi', function(topUi) {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 		topUi.init(scope);
@@ -27,7 +27,7 @@ app.service('pendingUi', function(topUi) {
 	 *
 	 * @param data
 	 */
-	this.load = function(data) {
+	this.load = function (data) {
 
 		scope.application.pending = data;
 	};
@@ -37,9 +37,9 @@ app.service('pendingUi', function(topUi) {
 	 *
 	 * @param requestId
 	 */
-	this.accept = function(requestId) {
+	this.accept = function (requestId) {
 
-		this.remove(requestId, function(credit) {
+		this.remove(requestId, function (credit) {
 
 			credit.isApproved = 1;
 			topUi.add(credit);
@@ -51,9 +51,9 @@ app.service('pendingUi', function(topUi) {
 	 *
 	 * @param requestId
 	 */
-	this.reject = function(requestId) {
+	this.reject = function (requestId) {
 
-		this.remove(requestId, function(credit) {
+		this.remove(requestId, function (credit) {
 
 			credit.isApproved = 0;
 			topUi.add(credit);
@@ -66,7 +66,7 @@ app.service('pendingUi', function(topUi) {
 	 * @param requestId
 	 * @param callback
 	 */
-	this.remove = function(requestId, callback) {
+	this.remove = function (requestId, callback) {
 
 		var curr, i;
 
@@ -91,7 +91,7 @@ app.service('pendingUi', function(topUi) {
 /**
  * Statistic Ui Service
  */
-app.service('statsUi', function() {
+app.service('statsUi', function () {
 
 	var scope;
 
@@ -100,7 +100,7 @@ app.service('statsUi', function() {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 	};
@@ -108,7 +108,7 @@ app.service('statsUi', function() {
 	/**
 	 * Increment accepted stats
 	 */
-	this.approveIncrement = function() {
+	this.approveIncrement = function () {
 
 		++scope.application.stats.approved;
 	};
@@ -116,7 +116,7 @@ app.service('statsUi', function() {
 	/**
 	 * Increment rejected stats
 	 */
-	this.rejectIncrement = function() {
+	this.rejectIncrement = function () {
 
 		++scope.application.stats.rejected;
 	};
@@ -126,7 +126,7 @@ app.service('statsUi', function() {
 	 *
 	 * @param stats
 	 */
-	this.load = function(stats) {
+	this.load = function (stats) {
 
 		scope.application.stats = stats;
 	};
@@ -135,7 +135,7 @@ app.service('statsUi', function() {
 /**
  * Top UI Service
  */
-app.service('topUi', function() {
+app.service('topUi', function () {
 
 	var scope;
 
@@ -144,7 +144,7 @@ app.service('topUi', function() {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 	};
@@ -154,7 +154,7 @@ app.service('topUi', function() {
 	 *
 	 * @param item
 	 */
-	this.add = function(item) {
+	this.add = function (item) {
 
 		scope.application.top.unshift(item);
 	};
@@ -164,7 +164,7 @@ app.service('topUi', function() {
 	 *
 	 * @param data
 	 */
-	this.load = function(data) {
+	this.load = function (data) {
 
 		scope.application.top = data;
 	};
@@ -173,7 +173,7 @@ app.service('topUi', function() {
 /**
  * History Ui Service
  */
-app.service('historyUi', function() {
+app.service('historyUi', function () {
 
 	var scope;
 
@@ -182,7 +182,7 @@ app.service('historyUi', function() {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 	};
@@ -192,7 +192,7 @@ app.service('historyUi', function() {
 	 *
 	 * @param data
 	 */
-	this.load = function(data) {
+	this.load = function (data) {
 
 		scope.history.histories = data;
 	};
@@ -201,7 +201,7 @@ app.service('historyUi', function() {
 /**
  * Debt UI Service
  */
-app.service('debtUi', function() {
+app.service('debtUi', function () {
 
 	var scope;
 
@@ -210,7 +210,7 @@ app.service('debtUi', function() {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 	};
@@ -220,7 +220,7 @@ app.service('debtUi', function() {
 	 *
 	 * @param data
 	 */
-	this.load = function(data) {
+	this.load = function (data) {
 
 		scope.credit = data;
 	};
@@ -229,7 +229,7 @@ app.service('debtUi', function() {
 /**
  * Simulation Ui Service
  */
-app.service('simulationUi', function() {
+app.service('simulationUi', function () {
 
 	var scope;
 
@@ -238,16 +238,16 @@ app.service('simulationUi', function() {
 	 *
 	 * @param $scope
 	 */
-	this.init = function($scope) {
+	this.init = function ($scope) {
 
 		scope = $scope;
 
 		scope.simulation = {
-			submitText  : 'Submit',
-			simulated   : false,
-			saving      : false,
-			credit      : { tenor: 6 },
-			schedule    : []
+			submitText: 'Submit',
+			simulated: false,
+			saving: false,
+			credit: {tenor: 6},
+			schedule: []
 		};
 	};
 
@@ -260,7 +260,7 @@ app.service('simulationUi', function() {
 	 *
 	 * @returns {number}
 	 */
-	this.getMonthlyPayment = function(ir, am, tr) {
+	this.getMonthlyPayment = function (ir, am, tr) {
 
 		ir = ir / 1200;
 
@@ -274,24 +274,24 @@ app.service('simulationUi', function() {
 	 * @param tr Tenor
 	 * @returns {Array}
 	 */
-	this.generateDebtSchedule = function(am, tr) {
+	this.generateDebtSchedule = function (am, tr) {
 
-		var mp          = this.getMonthlyPayment(2, am, tr), //Monthly payment
-			schedules   = [],
+		var mp = this.getMonthlyPayment(2, am, tr), //Monthly payment
+			schedules = [],
 			balance,
 			item,
 			i;
 
-		for(i = 0; i < tr; i++) {
+		for (i = 0; i < tr; i++) {
 
 			balance = i == 0 ? am : schedules[i - 1].balance;
 
 			item = {};
-			item.paymentAmount  = mp;
-			item.interest       = (balance * 2) / 1200;
-			item.principalDebt  = mp - item.interest;
-			item.balance        = balance - item.principalDebt;
-			item.paymentDate    = new Date();
+			item.paymentAmount = mp;
+			item.interest = (balance * 2) / 1200;
+			item.principalDebt = mp - item.interest;
+			item.balance = balance - item.principalDebt;
+			item.paymentDate = new Date();
 
 			item.paymentDate.setMonth(item.paymentDate.getMonth() + (i + 1));
 
@@ -306,7 +306,7 @@ app.service('simulationUi', function() {
 	 *
 	 * @param data
 	 */
-	this.load = function(data) {
+	this.load = function (data) {
 
 		scope.simulation.schedule = data;
 	};
@@ -314,26 +314,26 @@ app.service('simulationUi', function() {
 	/**
 	 * Clear form data
 	 */
-	this.clear = function() {
+	this.clear = function () {
 
-		scope.simulation.credit     = { tenor: 6 };
-		scope.simulation.schedule   = [];
+		scope.simulation.credit = {tenor: 6};
+		scope.simulation.schedule = [];
 	};
 
 	/**
 	 * Enable and reset form
 	 */
-	this.enable = function() {
+	this.enable = function () {
 
 		scope.simulation.submitText = 'Submit';
-		scope.simulation.simulated  = false;
-		scope.simulation.saving     = false;
+		scope.simulation.simulated = false;
+		scope.simulation.saving = false;
 	};
 
 	/**
 	 * Reset simulation
 	 */
-	this.reset = function() {
+	this.reset = function () {
 
 		scope.calculatorForm.$setPristine();
 		scope.creditForm.$setPristine();

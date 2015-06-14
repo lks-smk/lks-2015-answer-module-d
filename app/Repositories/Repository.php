@@ -9,9 +9,10 @@
  */
 
 namespace App\Repositories;
+
 use App\Entities\Entity;
-use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\App;
 
 /**
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
@@ -19,136 +20,138 @@ use Illuminate\Database\Eloquent\Collection;
  */
 abstract class Repository implements RepositoryInterface {
 
-	/**
-	 * Singleton instance
-	 *
-	 * @var static
-	 */
-	private static $_instance;
+    /**
+     * Singleton instance
+     *
+     * @var static
+     */
+    private static $_instance;
 
-	/**
-	 * @var Entity
-	 */
-	private $_model;
+    /**
+     * @var Entity
+     */
+    private $_model;
 
-	/**
-	 * Filtering model class
-	 *
-	 * @var string
-	 */
-	protected $modelClass;
+    /**
+     * Filtering model class
+     *
+     * @var string
+     */
+    protected $modelClass;
 
-	/**
-	 * Filtering data with related keys
-	 *
-	 * @var array
-	 */
-	protected $related = array();
+    /**
+     * Filtering data with related keys
+     *
+     * @var array
+     */
+    protected $related = [];
 
-	/**
-	 * Get repository model
-	 *
-	 * @return Entity
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	protected function model() {
+    /**
+     * Get repository model
+     *
+     * @return Entity
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    protected function model() {
 
-		if ($this->_model === null) {
+        if ($this->_model === null) {
 
-			if ( ! $this->modelClass) {
+            if (!$this->modelClass) {
 
-				throw new \RuntimeException(sprintf('There are not model class defined on repository "".', get_called_class()));
-			}
+                throw new \RuntimeException(
+                    sprintf('There are not model class defined on repository "".', get_called_class())
+                );
+            }
 
-			$this->_model = App::make($this->modelClass);
-		}
+            $this->_model = App::make($this->modelClass);
+        }
 
-		$model = $this->_model;
+        $model = $this->_model;
 
-		foreach($this->related as $field => $value) {
+        foreach ($this->related as $field => $value) {
 
-			$model = $model->where($field, '=', $value);
-		}
+            $model = $model->where($field, '=', $value);
+        }
 
-		return $model;
-	}
+        return $model;
+    }
 
-	/**
-	 * Initialize instance and bind relation if exists
-	 *
-	 * @param array $related
-	 */
-	final public function __construct(array $related = null) {
+    /**
+     * Initialize instance and bind relation if exists
+     *
+     * @param array $related
+     */
+    final public function __construct(array $related = null) {
 
-		if ($related !== null) {
+        if ($related !== null) {
 
-			$this->related = $related;
-		}
-	}
+            $this->related = $related;
+        }
+    }
 
-	/**
-	 * Singleton factory
-	 *
-	 * @param array|null $related
-	 *
-	 * @return Repository
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public static function make(array $related = null) {
+    /**
+     * Singleton factory
+     *
+     * @param array|null $related
+     *
+     * @return Repository
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public static function make(array $related = null) {
 
-		$class = static::class;
+        $class = static::class;
 
-		if ( ! isset(self::$_instance[$class])) {
+        if (!isset(self::$_instance[ $class ])) {
 
-			self::$_instance[$class] = new static($related);
-		}
+            self::$_instance[ $class ] = new static($related);
+        }
 
-		return self::$_instance[$class];
-	}
+        return self::$_instance[ $class ];
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Entity
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findById($id) {
+    /**
+     * @param string $id
+     *
+     * @return Entity
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findById($id) {
 
-		return $this->model()->find($id);
-	}
+        return $this->model()->find($id);
+    }
 
-	/**
-	 * @param array $criteria
-	 *
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function find(array $criteria) {
+    /**
+     * @param array $criteria
+     *
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function find(array $criteria) {
 
-		$model = $this->model();
+        $model = $this->model();
 
-		foreach($criteria as $field => $value) {
+        foreach ($criteria as $field => $value) {
 
-			$parts      = array_filter(explode(' ', $field));
-			$operator   = count($parts) == 2 ? $parts[1] : '=';
+            $parts    = array_filter(explode(' ', $field));
+            $operator = count($parts) == 2 ? $parts[1] : '=';
 
-			$model = $model->where($parts[0], $operator, $value);
-		}
+            $model = $model->where($parts[0], $operator, $value);
+        }
 
-		return $model->get();
-	}
+        return $model->get();
+    }
 
-	/**
-	 * @return Collection
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function findAll() {
+    /**
+     * @return Collection
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function findAll() {
 
-		return $this->model()->get();
-	}
+        return $this->model()->get();
+    }
 }

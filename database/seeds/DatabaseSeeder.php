@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		Model::unguard();
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run() {
 
-		// $this->call('UserTableSeeder');
+        Model::unguard();
 
-		User::create(['email' => 'sa@localhost', 'password' => bcrypt('opensource')]);
-	}
+        // $this->call('UserTableSeeder');
+
+        User::create(['email' => 'sa@localhost', 'password' => bcrypt('opensource')]);
+    }
 
 }

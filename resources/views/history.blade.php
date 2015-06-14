@@ -13,7 +13,8 @@
             <div class="box box-danger">
                 <div class="box-header">
                     <h3 class="box-title">Settings</h3>
-                </div><!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
                 <!-- form start -->
                 <form ng-submit="history.view(history.setting)">
                     <div class="box-body">
@@ -23,12 +24,14 @@
 
                                 <div class="col-xs-4">
                                     <label>Date Range</label>
+
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control pull-right" id="reservation" />
-                                    </div><!-- /.input group -->
+                                        <input type="text" class="form-control pull-right" id="reservation"/>
+                                    </div>
+                                    <!-- /.input group -->
                                 </div>
                                 <div class="col-xs-3">
                                     <label for="status">Status</label>
@@ -40,6 +43,7 @@
                                 </div>
                                 <div class="col-xs-5">
                                     <label>Sort By</label>
+
                                     <div class="row">
                                         <div class="col-xs-5">
                                             <select class="form-control" ng-model="history.setting.sort.field">
@@ -60,18 +64,22 @@
                             </div>
 
                         </div>
-                    </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.box-body -->
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">View</button>
                     </div>
                 </form>
-            </div><!-- /.box -->
+            </div>
+            <!-- /.box -->
 
 
-        </div><!--/.col (left) -->
+        </div>
+        <!--/.col (left) -->
 
-    </div>   <!-- /.row -->
+    </div>
+    <!-- /.row -->
 
     <div class="row">
 
@@ -80,10 +88,12 @@
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Detail Loan Simulation</h3>
+
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div>
-                </div><!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table no-margin">
@@ -112,8 +122,10 @@
 
                             </tbody>
                         </table>
-                    </div><!-- /.table-responsive -->
-                </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
             </div>
         </div>
     </div>

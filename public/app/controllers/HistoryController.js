@@ -2,7 +2,7 @@
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
  * @created     6/12/15
  */
-app.registerCtrl('HistoryController', function($scope, $filter, historyUi, creditFactory) {
+app.registerCtrl('HistoryController', function ($scope, $filter, historyUi, creditFactory) {
 
 	//Initialize services
 	historyUi.init($scope);
@@ -10,7 +10,7 @@ app.registerCtrl('HistoryController', function($scope, $filter, historyUi, credi
 	/**
 	 * Initialize datepicker plugin
 	 */
-	$('#reservation').val($filter('date')(new Date(), 'yyyy-MM-dd - yyyy-MM-dd')).daterangepicker({format: 'YYYY-MM-DD'}, function(start, end) {
+	$('#reservation').val($filter('date')(new Date(), 'yyyy-MM-dd - yyyy-MM-dd')).daterangepicker({format: 'YYYY-MM-DD'}, function (start, end) {
 
 		$scope.history.setting.filter.date = {
 
@@ -48,16 +48,16 @@ app.registerCtrl('HistoryController', function($scope, $filter, historyUi, credi
 	 *
 	 * @param setting
 	 */
-	$scope.history.view = function(setting) {
+	$scope.history.view = function (setting) {
 
 		if (typeof setting.filter.date == 'string') {
 
 			var date = setting.filter.date.split(' - ');
 
-			setting.filter.date = { start: date[0], end: date[1] };
+			setting.filter.date = {start: date[0], end: date[1]};
 		}
 
-		creditFactory.getHistory(setting.filter.status, setting.filter.date, setting.sort).success(function(response) {
+		creditFactory.getHistory(setting.filter.status, setting.filter.date, setting.sort).success(function (response) {
 
 			if (response instanceof Array) {
 

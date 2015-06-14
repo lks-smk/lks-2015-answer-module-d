@@ -9,6 +9,7 @@
  */
 
 namespace App\Events;
+
 use App\Entities\Application;
 
 
@@ -18,17 +19,17 @@ use App\Entities\Application;
  */
 interface ShouldBeMailed {
 
-	/**
-	 * @return string
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getMessage();
+    /**
+     * @return string
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getMessage();
 
-	/**
-	 * @return Application
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getApplication();
+    /**
+     * @return Application
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getApplication();
 }

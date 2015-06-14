@@ -9,8 +9,9 @@
  */
 
 namespace App\Events;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
+
 use App\Entities\Application;
+use Illuminate\Contracts\Queue\ShouldBeQueued;
 
 /**
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
@@ -18,36 +19,36 @@ use App\Entities\Application;
  */
 class CreditWasRejected implements ShouldBeQueued, ShouldBeMailed {
 
-	private $message;
-	private $application;
+    private $message;
+    private $application;
 
-	/**
-	 * @param Application $application
-	 * @param string      $message
-	 */
-	public function __construct(Application $application, $message) {
+    /**
+     * @param Application $application
+     * @param string      $message
+     */
+    public function __construct(Application $application, $message) {
 
-		$this->application  = $application;
-		$this->message      = $message;
-	}
+        $this->application = $application;
+        $this->message     = $message;
+    }
 
-	/**
-	 * @return string
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getMessage() {
+    /**
+     * @return string
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getMessage() {
 
-		return $this->message;
-	}
+        return $this->message;
+    }
 
-	/**
-	 * @return Application
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function getApplication() {
+    /**
+     * @return Application
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function getApplication() {
 
-		return $this->application;
-	}
+        return $this->application;
+    }
 }

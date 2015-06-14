@@ -9,6 +9,7 @@
  */
 
 namespace App\Entities;
+
 use App\Repositories\DebtRepository;
 
 /**
@@ -17,164 +18,167 @@ use App\Repositories\DebtRepository;
  */
 class Application extends Entity {
 
-	const APPLICATION_STATUS_PENDING    = -1;
-	const APPLICATION_STATUS_ACCEPTED   = 1;
-	const APPLICATION_STATUS_REJECTED   = 0;
+    const APPLICATION_STATUS_PENDING = -1;
+    const APPLICATION_STATUS_ACCEPTED = 1;
+    const APPLICATION_STATUS_REJECTED = 0;
 
-	/**
-	 * Table name
-	 *
-	 * @var string
-	 */
-	protected $table = 'application';
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $table = 'application';
 
-	/**
-	 * Table identity
-	 *
-	 * @var string
-	 */
-	protected $primaryKey = 'request_id';
+    /**
+     * Table identity
+     *
+     * @var string
+     */
+    protected $primaryKey = 'request_id';
 
-	/**
-	 * Table column mapping
-	 *
-	 * @var array
-	 */
-	protected $maps = [
-		'requestId'         => 'request_id',
-	    'requestDate'       => 'request_date',
-	    'loanAmount'        => 'loan_amount',
-	    'tenor'             => 'tenor',
-	    'email'             => 'email',
-	    'phone'             => 'phone',
-	    'interestRate'      => 'interest_rate',
-	    'monthlyPayment'    => 'monthly_payment',
-	    'fullName'          => 'full_name',
-	    'isApproved'        => 'is_approved',
-	    'approveDate'       => 'approve_date',
-	    'approveBy'         => 'approve_by'
-	];
+    /**
+     * Table column mapping
+     *
+     * @var array
+     */
+    protected $maps = [
 
-	/**
-	 * @var array
-	 */
-	protected $guarded = ['request_id'];
+        'requestId'      => 'request_id',
+        'requestDate'    => 'request_date',
+        'loanAmount'     => 'loan_amount',
+        'tenor'          => 'tenor',
+        'email'          => 'email',
+        'phone'          => 'phone',
+        'interestRate'   => 'interest_rate',
+        'monthlyPayment' => 'monthly_payment',
+        'fullName'       => 'full_name',
+        'isApproved'     => 'is_approved',
+        'approveDate'    => 'approve_date',
+        'approveBy'      => 'approve_by'
+    ];
 
-	/**
-	 * Initialize instance and configuration
-	 */
-	public function __construct() {
+    /**
+     * @var array
+     */
+    protected $guarded = ['request_id'];
 
-		//Configure fill able entity only from mapping field column
-		$this->fillable(array_values($this->maps));
-	}
+    /**
+     * Initialize instance and configuration
+     */
+    public function __construct() {
 
-	/**
-	 * @param array $data
-	 *
-	 * @return Application
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public static function applyCredit(array $data) {
+        //Configure fill able entity only from mapping field column
+        $this->fillable(array_values($this->maps));
+    }
 
-		$application    = new Application();
-		$requestId      = Application::generateCode();
+    /**
+     * @param array $data
+     *
+     * @return Application
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public static function applyCredit(array $data) {
 
-		$application->fill($data);
-		$application->setMonthlyPayment(2);
+        $application = new Application();
+        $requestId   = Application::generateCode();
 
-		$application->requestId         = $requestId;
-		$application->isApproved        = Application::APPLICATION_STATUS_PENDING;
-		$application->requestDate       = (new \DateTime())->format('Y-m-d');
+        $application->fill($data);
+        $application->setMonthlyPayment(2);
 
-		if ($application->save()) {
+        $application->requestId   = $requestId;
+        $application->isApproved  = Application::APPLICATION_STATUS_PENDING;
+        $application->requestDate = (new \DateTime())->format('Y-m-d');
 
-			$application->requestId = $requestId;
-			Debt::applyDebt($application);
+        if ($application->save()) {
 
-			return $application;
-		}
+            $application->requestId = $requestId;
+            Debt::applyDebt($application);
 
-		throw new \RuntimeException('Failed during apply credit.');
-	}
+            return $application;
+        }
 
-	/**
-	 * Generate request id code
-	 *
-	 * @return string
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public static function generateCode() {
+        throw new \RuntimeException('Failed during apply credit.');
+    }
 
-		$last   = Application::orderBy('request_id', 'desc')->first();
-		$num    = 0;
+    /**
+     * Generate request id code
+     *
+     * @return string
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public static function generateCode() {
 
-		if ($last) {
+        $last = Application::orderBy('request_id', 'desc')->first();
+        $num  = 0;
 
-			$num = str_replace('OR', '', $last->requestId);
-			$num = (int) $num;
-		}
+        if ($last) {
 
-		return sprintf('OR%04d', $num + 1);
-	}
+            $num = str_replace('OR', '', $last->requestId);
+            $num = (int)$num;
+        }
 
-	/**
-	 * Set monthly payment
-	 *
-	 * @param integer $interestRate
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function setMonthlyPayment($interestRate) {
+        return sprintf('OR%04d', $num + 1);
+    }
 
-		$this->interestRate = $interestRate;
+    /**
+     * Set monthly payment
+     *
+     * @param integer $interestRate
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function setMonthlyPayment($interestRate) {
 
-		$interestRate = $this->interestRate / 1200;
+        $this->interestRate = $interestRate;
 
-		$this->monthlyPayment = $interestRate * -$this->loanAmount * pow((1 + $interestRate), $this->tenor) / (1 - pow((1 + $interestRate), $this->tenor));
-	}
+        $interestRate = $this->interestRate / 1200;
 
-	/**
-	 * Accept application
-	 *
-	 * @param string $acceptBy
-	 *
-	 * @return boolean
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function accept($acceptBy) {
+        $this->monthlyPayment = $interestRate * -$this->loanAmount * pow((1 + $interestRate), $this->tenor) / (1 - pow(
+                    (1 + $interestRate), $this->tenor
+                ));
+    }
 
-		$this->isApproved   = Application::APPLICATION_STATUS_ACCEPTED;
-		$this->approveDate  = (new \DateTime())->format('Y-m-d');
-		$this->approveBy    = $acceptBy;
+    /**
+     * Accept application
+     *
+     * @param string $acceptBy
+     *
+     * @return boolean
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function accept($acceptBy) {
 
-		return $this->where('request_id', $this->requestId)->update($this->attributes);
-	}
+        $this->isApproved  = Application::APPLICATION_STATUS_ACCEPTED;
+        $this->approveDate = (new \DateTime())->format('Y-m-d');
+        $this->approveBy   = $acceptBy;
 
-	/**
-	 * Reject application
-	 *
-	 * @return boolean
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function reject() {
+        return $this->where('request_id', $this->requestId)->update($this->attributes);
+    }
 
-		$this->isApproved = Application::APPLICATION_STATUS_REJECTED;
+    /**
+     * Reject application
+     *
+     * @return boolean
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function reject() {
 
-		return $this->where('request_id', $this->requestId)->update($this->attributes);
-	}
+        $this->isApproved = Application::APPLICATION_STATUS_REJECTED;
 
-	/**
-	 * @return DebtRepository
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function debts() {
+        return $this->where('request_id', $this->requestId)->update($this->attributes);
+    }
 
-		return $this->lazyHasMany(DebtRepository::class, 'request_id');
-	}
+    /**
+     * @return DebtRepository
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function debts() {
+
+        return $this->lazyHasMany(DebtRepository::class, 'request_id');
+    }
 }

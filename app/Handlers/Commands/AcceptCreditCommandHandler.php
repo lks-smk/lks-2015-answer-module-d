@@ -9,6 +9,7 @@
  */
 
 namespace App\Handlers\Commands;
+
 use App\Commands\AcceptCreditCommand;
 use App\Entities\Application;
 use App\Events\CreditWasAccepted;
@@ -21,46 +22,48 @@ use Illuminate\Contracts\Events\Dispatcher;
  */
 class AcceptCreditCommandHandler extends CommandHandler {
 
-	protected $repo;
+    protected $repo;
 
-	/**
-	 * @param Dispatcher                     $dispatcher
-	 * @param ApplicationRepositoryInterface $repository
-	 */
-	public function __construct(Dispatcher $dispatcher, ApplicationRepositoryInterface $repository) {
+    /**
+     * @param Dispatcher                     $dispatcher
+     * @param ApplicationRepositoryInterface $repository
+     */
+    public function __construct(Dispatcher $dispatcher, ApplicationRepositoryInterface $repository) {
 
-		parent::__construct($dispatcher);
-		$this->repo = $repository;
-	}
+        parent::__construct($dispatcher);
+        $this->repo = $repository;
+    }
 
-	/**
-	 * Handler when accept application
-	 *
-	 * @param AcceptCreditCommand $command
-	 *
-	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
-	 */
-	public function handle(AcceptCreditCommand $command) {
+    /**
+     * Handler when accept application
+     *
+     * @param AcceptCreditCommand $command
+     *
+     * @author Iqbal Maulana <iq.bluejack@gmail.com>
+     */
+    public function handle(AcceptCreditCommand $command) {
 
-		/** @var Application $application */
-		$application = $this->repo->findPendingApplicationById($command->requestId);
+        /** @var Application $application */
+        $application = $this->repo->findPendingApplicationById($command->requestId);
 
-		if ( ! $application) {
+        if (!$application) {
 
-			throw new \InvalidArgumentException(sprintf(
-				'Pending application with request id %s not found.',
-				$command->requestId
-			));
-		}
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Pending application with request id %s not found.',
+                    $command->requestId
+                )
+            );
+        }
 
-		if ($application->accept($command->acceptBy)) {
+        if ($application->accept($command->acceptBy)) {
 
-			$this->dispatcher->fire(
-				new CreditWasAccepted(
-					$application,
-					sprintf('Your application with request id %s has been accepted.', $application->requestId)
-				)
-			);
-		}
-	}
+            $this->dispatcher->fire(
+                new CreditWasAccepted(
+                    $application,
+                    sprintf('Your application with request id %s has been accepted.', $application->requestId)
+                )
+            );
+        }
+    }
 }
