@@ -1,0 +1,11 @@
+## MAIN REPOSITORY
+deb http://mirror.lkssmk2015.local/ubuntu trusty main restricted universe multiverse
+deb-src http://mirror.lkssmk2015.local/ubuntu trusty main restricted universe multiverse
+
+## MAJOR BUG FIX UPDATES
+deb http://mirror.lkssmk2015.local/ubuntu trusty-updates main restricted universe multiverse
+deb-src http://mirror.lkssmk2015.local/ubuntu trusty-updates main restricted universe multiverse
+
+## UBUNTU SECURITY UPDATES
+deb http://mirror.lkssmk2015.local/ubuntu trusty-security main restricted universe multiverse
+deb-src http://mirror.lkssmk2015.local/ubuntu trusty-security main restricted universe multiverse
