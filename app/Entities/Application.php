@@ -41,7 +41,6 @@ class Application extends Entity {
 	 * @var array
 	 */
 	protected $maps = [
-
 		'requestId'         => 'request_id',
 	    'requestDate'       => 'request_date',
 	    'loanAmount'        => 'loan_amount',
