@@ -1,7 +1,4 @@
 <?php
-
-use Blade;
-
 /*
 |--------------------------------------------------------------------------
 | Blade Configuration
@@ -29,12 +26,18 @@ Blade::extend(function($view, $compiler){
 |
 */
 
+Route::controller('auth', 'AuthController');
+
 Route::get('/', 'HomeController@index');
-Route::get('/view/{view}', 'UiController@handle');
+Route::get('/view/auth/{view}', 'UiController@auth');
+Route::get('/view/guest/{view}', 'UiController@guest');
 
 Route::group(['prefix' => 'api'], function() {
 
-	Route::resource('top-application', 'Api\TopApplicationController');
-	Route::resource('application', 'Api\ApplicationController');
-	Route::resource('application/{requestId}/status', 'Api\ApplicationStatusController');
+	Route::resource('/application/top', 'Api\TopApplicationController');
+	Route::resource('/application/stats', 'Api\ApplicationStatisticController');
+	Route::resource('/application/history', 'Api\ApplicationHistoryController');
+
+	Route::resource('/application', 'Api\ApplicationController');
+	Route::resource('/application/{requestId}/status', 'Api\ApplicationStatusController');
 });

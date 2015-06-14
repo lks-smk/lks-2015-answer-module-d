@@ -41,4 +41,22 @@ interface ApplicationRepositoryInterface extends RepositoryInterface {
 	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
 	 */
 	public function findTopApprovedApplications();
+
+	/**
+	 * @return array
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function findApplicationStatistic();
+
+	/**
+	 * @param string $status
+	 * @param array  $dates
+	 * @param array  $sort
+	 *
+	 * @return mixed
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function findApplicationHistory($status, array $dates, array $sort);
 }

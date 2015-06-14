@@ -9,7 +9,6 @@
  */
 
 namespace App\Commands;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>

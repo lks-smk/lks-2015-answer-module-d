@@ -21,9 +21,6 @@ echo "Provisioning virtual machine..."
 
 export DEBIAN_FRONTEND=noninteractive
 
-mv /etc/apt/sources.list /etc/apt/sources.list.original
-cp /var/www/provision/config/sources.list /etc/apt/sources.list
-
 # Updating repository
 log_daemon_msg "Updating repository..."
 apt-get update > /dev/null
@@ -31,9 +28,9 @@ log_end_msg 0
 
 apt-get install unzip -y > /dev/null
 apt-get install makepasswd -y > /dev/null
-USER_NAME=lks
+USER_NAME=sa
 DB_NAME=app
-USER_PASS=$(makepasswd)
+USER_PASS=opensource
 
 # Configuring locale
 log_daemon_msg "Setting up locale..."
@@ -98,41 +95,6 @@ php5enmod mcrypt
 
 log_end_msg 0
 
-if [ ! -f /var/www/.env ]
-    then
-
-    rm -rf /tmp/composer.phar
-    rm -rf /tmp/laravel
-
-    # Installing Composer
-    log_daemon_msg "Installing composer..."
-
-    cd /tmp
-    wget http://packages.lkssmk2015.local/composer.phar > /dev/null
-
-    log_end_msg 0
-
-    # Installing Laravel
-    log_daemon_msg "Installing laravel..."
-	
-	wget http://packages.lkssmk2015.local/laravel.zip > /dev/null
-    #php composer.phar create-project laravel/laravel --prefer-dist --repository-url=http://packages.lkssmk2015.local > /dev/null
-    unzip laravel.zip > /dev/null
-	cp -rf /var/www/provision/config/composer.json /tmp/laravel/
-	cd /tmp/laravel
-	php artisan fresh
-	
-	cd /tmp
-    cp -rf composer.phar /var/www/
-    cp -rf laravel/. /var/www/
-
-    rm -rf /tmp/composer.phar
-    rm -rf /tmp/laravel
-
-    log_end_msg 0
-
-fi
-
 # Installing Mail Server
 log_daemon_msg "Installing Mail Server..."
 
@@ -149,9 +111,6 @@ cp /var/www/provision/config/dovecot_master /etc/dovecot/conf.d/10-master.conf  
 sed -i "s/#disable_plaintext_auth.*/disable_plaintext_auth=no/" /etc/dovecot/conf.d/10-auth.conf
 sed -i "s/#ssl.*/ssl=no/" /etc/dovecot/conf.d/10-ssl.conf
 sed -i "s/#mail_privileged_group.*/mail_privileged_group=mail/" /etc/dovecot/conf.d/10-mail.conf
-
-
-
 log_end_msg 0
 
 log_daemon_msg "Creating User..."
@@ -171,7 +130,9 @@ if [ -f /var/www/.env ]
 
         log_daemon_msg "Configuring Laravel..."
 
+        mysql -u root -e "DROP DATABASE IF EXISTS $DB_NAME"
         mysql -u root -e "CREATE DATABASE $DB_NAME"
+        mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '$USER_NAME'@'%' IDENTIFIED BY '$USER_PASS'"
 
         sed -i "s/DB_HOST.*/DB_HOST=127.0.0.1/" /var/www/.env
         sed -i "s/DB_DATABASE.*/DB_DATABASE=${DB_NAME}/" /var/www/.env
@@ -180,6 +141,14 @@ if [ -f /var/www/.env ]
 
         sed -i "s/MAIL_HOST.*/MAIL_HOST=localhost/" /var/www/.env
         sed -i "s/MAIL_PORT.*/MAIL_PORT=25/" /var/www/.env
+
+        cd /var/www
+
+        # Update dependency
+        php composer.phar update > /dev/null
+        php artisan optimize > /dev/null
+        php artisan migrate > /dev/null
+        php artisan db:seed > /dev/null
 
         log_end_msg 0
 fi

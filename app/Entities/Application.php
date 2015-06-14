@@ -83,11 +83,9 @@ class Application extends Entity {
 		$requestId      = Application::generateCode();
 
 		$application->fill($data);
+		$application->setMonthlyPayment(2);
 
 		$application->requestId         = $requestId;
-		$application->interestRate      = 2;
-		$interestRate                   = $application->interestRate / 1200;
-		$application->monthlyPayment    = $interestRate * -$application->loanAmount * pow((1 + $interestRate), $application->tenor) / (1 - pow((1 + $interestRate), $application->tenor));
 		$application->isApproved        = Application::APPLICATION_STATUS_PENDING;
 		$application->requestDate       = (new \DateTime())->format('Y-m-d');
 
@@ -121,6 +119,22 @@ class Application extends Entity {
 		}
 
 		return sprintf('OR%04d', $num + 1);
+	}
+
+	/**
+	 * Set monthly payment
+	 *
+	 * @param integer $interestRate
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function setMonthlyPayment($interestRate) {
+
+		$this->interestRate = $interestRate;
+
+		$interestRate = $this->interestRate / 1200;
+
+		$this->monthlyPayment = $interestRate * -$this->loanAmount * pow((1 + $interestRate), $this->tenor) / (1 - pow((1 + $interestRate), $this->tenor));
 	}
 
 	/**

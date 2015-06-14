@@ -39,6 +39,8 @@ class ApplicationRepository extends Repository implements ApplicationRepositoryI
 	}
 
 	/**
+	 * Find pending credit application by id
+	 *
 	 * @param string $id
 	 *
 	 * @return Entity
@@ -51,12 +53,71 @@ class ApplicationRepository extends Repository implements ApplicationRepositoryI
 	}
 
 	/**
+	 * Find top approved or rejected applications
+	 *
 	 * @return Collection
 	 *
 	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
 	 */
 	public function findTopApprovedApplications() {
 
-		return $this->model()->where('is_approved', '!=', -1)->limit(10)->get();
+		return $this->model()->where('is_approved', '!=', -1)->limit(10)->orderBy('request_id', 'desc')->get();
+	}
+
+	/**
+	 * Find credit applications stats
+	 *
+	 * @return array
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function findApplicationStatistic() {
+
+		return [
+
+			'approved'  => $this->model()->where('is_approved', '=', 1)->count(),
+		    'rejected'  => $this->model()->where('is_approved', '=', 0)->count(),
+		    'pending'   => $this->model()->where('is_approved', '=', -1)->count()
+		];
+	}
+
+	/**
+	 * Find application credit history
+	 *
+	 * @param string $status
+	 * @param array  $dates
+	 * @param array  $sort
+	 *
+	 * @return mixed
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function findApplicationHistory($status, array $dates, array $sort) {
+
+		$model = $this->model();
+
+		// If status exists
+		if ($status != '' && in_array($status, array(1, 0))) {
+
+			$model = $model->where('is_approved', $status);
+		}
+
+		// Validate date setting
+		if ( ! isset($dates['start']) || ! isset($dates['end'])) {
+
+			throw new \InvalidArgumentException('Invalid date settings.');
+		}
+
+		// Validate sort setting
+		if ( ! isset($sort['field']) || ! isset($sort['direction'])) {
+
+			throw new \InvalidArgumentException('Invalid sort settings.');
+		}
+
+		$model = $model->where('is_approved', '!=', -1);
+		$model = $model->where('request_date', '>=', $dates['start'])->where('request_date', '<=', $dates['end']);
+		$model = $model->orderBy($sort['field'], $sort['direction']);
+
+		return $model->get();
 	}
 }

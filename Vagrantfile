@@ -56,7 +56,6 @@ Vagrant.configure(2) do |config|
 
         vm.name = "LKS SMK Environment"
         vm.memory = 1024
-
   end
   #
   # View the documentation for the provider you are using for more

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html ng-app="KoperasiApp">
+<html ng-app="koperasi">
 <head>
+    <meta name="X-CSRF-TOKEN" content="[[ csrf_token() ]]" />
     <meta charset="UTF-8">
     <title>KoperasiLKS | Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
@@ -31,24 +33,32 @@
                 <ul class="nav navbar-nav">
                     <!-- User Account: style can be found in dropdown.less -->
                     <li>
-                        <a href="login.html">
-                            <span class="hidden-xs">Sign In</span>
-                        </a>
+                        @if (Auth::check())
+                            <a href="/auth/logout">
+                                <span class="hidden-xs">Sign Out</span>
+                            </a>
+                        @else
+                            <a href="/auth/login">
+                                <span class="hidden-xs">Sign In</span>
+                            </a>
+                        @endif
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" ng-controller="sideBarController">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li><a href="#/"><i class="fa fa-list-alt"></i> Simulation</a></li>
-                <li class="header">CONTROL PANEL</li>
-                <li><a href="#/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="#/history"><i class="fa fa-history"></i> Transaction History</a></li>
+                <li ng-class="{active: $route.current.active == 'simulation'}"><a href="#/"><i class="fa fa-list-alt"></i> Simulation</a></li>
+                @if (Auth::check())
+                    <li class="header">CONTROL PANEL</li>
+                    <li ng-class="{active: $route.current.active == 'dashboard'}"><a href="#/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li ng-class="{active: $route.current.active == 'history'}"><a href="#/history"><i class="fa fa-history"></i> Transaction History</a></li>
+                @endif
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -66,11 +76,14 @@
 
 </div><!-- ./wrapper -->
 
-<script src="dist/js/angular.min.js"></script>
-<script src="dist/js/angular-route.min.js"></script>
-<script src="app/app.js"></script>
 <!-- jQuery 2.1.3 -->
 <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<script src="dist/js/angular.min.js"></script>
+<script src="dist/js/angular-route.min.js"></script>
+<script src="app/ui.js"></script>
+<script src="app/data.js"></script>
+<script src="app/app.js"></script>
+
 <!-- Bootstrap 3.3.2 JS -->
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- FastClick -->

@@ -2,21 +2,39 @@
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
  * @created     6/12/15
  */
-app.registerCtrl('DashboardController', ['$scope', 'applicationService', 'pendingUiService', function($scope, applicationService, pendingUiService) {
+app.registerCtrl('DashboardController', function($scope, creditFactory, pendingUi, topUi, statsUi) {
 
-	$scope.application = { pending: [] };
-
-	/**
-	 * Init scope for pending ui
-	 */
-	pendingUiService.init($scope);
+	$scope.application = { pending: [], top: [], stats: { approved: 0, rejected: 0, pending: 0 } };
 
 	/**
-	 * Load Pending Application
+	 * Init ui services
 	 */
-	applicationService.getPendingApplications().success(function(response) {
+	pendingUi.init($scope);
+	topUi.init($scope);
+	statsUi.init($scope);
 
-		pendingUiService.load(response);
+	/**
+	 * Load Pending Applications
+	 */
+	creditFactory.getPendingApplications().success(function(response) {
+
+		pendingUi.load(response);
+	});
+
+	/**
+	 * Load Top Applications
+	 */
+	creditFactory.getTopApplications().success(function(response) {
+
+		topUi.load(response);
+	});
+
+	/**
+	 * Load Application statistics
+	 */
+	creditFactory.getStatistic().success(function(response) {
+
+		statsUi.load(response);
 	});
 
 	/**
@@ -26,9 +44,10 @@ app.registerCtrl('DashboardController', ['$scope', 'applicationService', 'pendin
 	 */
 	$scope.application.accept = function(requestId) {
 
-		applicationService.accept(requestId).success(function() {
+		creditFactory.accept(requestId).success(function() {
 
-			pendingUiService.remove(requestId);
+			pendingUi.accept(requestId);
+			statsUi.approveIncrement();
 		});
 	};
 
@@ -39,10 +58,11 @@ app.registerCtrl('DashboardController', ['$scope', 'applicationService', 'pendin
 	 */
 	$scope.application.reject = function(requestId) {
 
-		applicationService.reject(requestId).success(function() {
+		creditFactory.reject(requestId).success(function() {
 
-			pendingUiService.remove(requestId);
+			pendingUi.reject(requestId);
+			statsUi.rejectIncrement();
 		});
 	};
 
-}]);
+});

@@ -15,7 +15,7 @@
                     <h3 class="box-title">Settings</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form">
+                <form ng-submit="history.view(history.setting)">
                     <div class="box-body">
                         <div class="form-group">
 
@@ -27,31 +27,31 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control pull-right" id="reservation"/>
+                                        <input type="text" class="form-control pull-right" id="reservation" />
                                     </div><!-- /.input group -->
                                 </div>
                                 <div class="col-xs-3">
                                     <label for="status">Status</label>
-                                    <select id="status" class="form-control">
-                                        <option>All</option>
-                                        <option>Accepted</option>
-                                        <option>Rejected</option>
+                                    <select id="status" class="form-control" ng-model="history.setting.filter.status">
+                                        <option value="">All</option>
+                                        <option value="1">Accepted</option>
+                                        <option value="0">Rejected</option>
                                     </select>
                                 </div>
                                 <div class="col-xs-5">
                                     <label>Sort By</label>
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            <select class="form-control">
-                                                <option>Request ID</option>
-                                                <option>Monthly Payment</option>
-                                                <option>Principal Date</option>
+                                            <select class="form-control" ng-model="history.setting.sort.field">
+                                                <option value="request_id">Request ID</option>
+                                                <option value="monthly_payment">Monthly Payment</option>
+                                                <option value="request_date">Request Date</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-5">
-                                            <select class="form-control">
-                                                <option>ASC</option>
-                                                <option>DESC</option>
+                                            <select class="form-control" ng-model="history.setting.sort.direction">
+                                                <option value="asc">ASC</option>
+                                                <option value="desc">DESC</option>
                                             </select>
                                         </div>
                                     </div>
@@ -90,6 +90,7 @@
                             <thead>
                             <tr>
                                 <th>Request ID</th>
+                                <th>Request Date</th>
                                 <th>Monthly Payment</th>
                                 <th>Principal Debt</th>
                                 <th>Interest Rate</th>
@@ -97,19 +98,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="detail.html">OR9842</a></td>
-                                <td>IDR 150.000</td>
-                                <td>IDR 3.000.000</td>
-                                <td>2%</td>
-                                <td><span class="label label-success">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="detail.html">OR9842</a></td>
-                                <td>IDR 150.000</td>
-                                <td>IDR 3.000.000</td>
-                                <td>2%</td>
-                                <td><span class="label label-danger">Rejected</span></td>
+                            <tr ng-repeat="item in history.histories">
+                                <td><a href="#/history/{{ item.requestId  }}">{{ item.requestId  }}</a></td>
+                                <td>{{ item.requestDate | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ item.monthlyPayment | currency: 'IDR  ' }}</td>
+                                <td>{{ item.loanAmount | currency: 'IDR  ' }}</td>
+                                <td>{{ item.interestRate }}%</td>
+                                <td>
+                                    <span ng-show="item.isApproved==1" class="label label-success">Approved</span>
+                                    <span ng-show="item.isApproved==0" class="label label-danger">Rejected</span>
+                                </td>
                             </tr>
 
                             </tbody>

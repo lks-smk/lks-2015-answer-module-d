@@ -3,13 +3,25 @@
  * @created     6/10/15
  */
 
-var app = angular.module('KoperasiApp', ['ngRoute']);
+var app = angular.module('koperasi', ['ngRoute', 'koperasi.ui', 'koperasi.data']);
 
+/**
+ * Base Configuration
+ *
+ * Register routing and init lazy loading for controller
+ */
 app.config(['$routeProvider', '$controllerProvider',  function($routeProvider, $controllerProvider) {
 
 	app.registerCtrl = $controllerProvider.register;
 
-	function controller(name) {
+	/**
+	 * Loader Service
+	 * Lazy load controller
+	 *
+	 * @param name
+	 * @returns {{load: Function}}
+	 */
+	function loader(name) {
 
 		return {
 
@@ -22,77 +34,38 @@ app.config(['$routeProvider', '$controllerProvider',  function($routeProvider, $
 
 	$routeProvider.when('/', {
 
-		templateUrl: 'view/simulation',
+		templateUrl: 'view/guest/simulation',
 		controller: 'SimulationController',
-		resolve: controller('SimulationController')
+		resolve: loader('SimulationController'),
+		active: 'simulation'
 	});
 
 	$routeProvider.when('/dashboard', {
 
-		templateUrl: 'view/dashboard',
+		templateUrl: 'view/auth/dashboard',
 		controller: 'DashboardController',
-		resolve: controller('DashboardController')
+		resolve: loader('DashboardController'),
+		active: 'dashboard'
 	});
 
 	$routeProvider.when('/history', {
 
-		templateUrl: 'view/history',
+		templateUrl: 'view/auth/history',
 		controller: 'HistoryController',
-		resolve: controller('HistoryController')
+		resolve: loader('HistoryController'),
+		active: 'history'
+	});
+
+	$routeProvider.when('/history/:requestId', {
+
+		templateUrl: 'view/auth/debt',
+		controller: 'DebtController',
+		resolve: loader('DebtController'),
+		active: 'history'
 	});
 }]);
 
-app.service('applicationService', ['$http', function($http) {
+app.controller('sideBarController', function($scope, $route) {
 
-	return {
-
-		accept: function(requestId) {
-
-			return $http.patch('api/application/' + requestId + '/status/accept');
-		},
-
-		reject: function(requestId) {
-
-			return $http.patch('api/application/' + requestId + '/status/reject');
-		},
-
-		getPendingApplications: function() {
-
-			return $http.get('api/application');
-		}
-	};
-}]);
-
-app.service('pendingUiService', [function() {
-
-	var scope;
-
-	return {
-
-		init: function($scope) {
-
-			scope = $scope;
-		},
-
-		load: function(data) {
-
-			scope.application.pending = data;
-		},
-
-		remove: function(requestId) {
-
-			var curr;
-
-			for (var i = 0; i < scope.application.pending.length; i++) {
-
-				curr = scope.application.pending[i];
-
-				if (curr.requestId == requestId) {
-
-					scope.application.pending.splice(i, 1);
-					break;
-				}
-			}
-		}
-	};
-}]);
+	$scope.$route = $route;
+});

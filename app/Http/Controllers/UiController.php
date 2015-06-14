@@ -17,13 +17,34 @@ namespace App\Http\Controllers;
 class UiController extends Controller {
 
 	/**
+	 * Initialize new instance
+	 */
+	public function __construct() {
+
+		//$this->middleware('guest');
+		$this->middleware('auth', ['only' => 'auth']);
+	}
+
+	/**
 	 * @param $view
 	 *
 	 * @return \Illuminate\View\View
 	 *
 	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
 	 */
-	public function handle($view) {
+	public function auth($view) {
+
+		return view($view);
+	}
+
+	/**
+	 * @param $view
+	 *
+	 * @return \Illuminate\View\View
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function guest($view) {
 
 		return view($view);
 	}

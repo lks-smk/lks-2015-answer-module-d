@@ -13,7 +13,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-check-circle-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Approved</span>
-                    <span class="info-box-number">150</span>
+                    <span class="info-box-number">{{ application.stats.approved|number:0 }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div><!-- /.col -->
@@ -22,7 +22,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-trash"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Rejected</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-number">{{ application.stats.rejected|number:0 }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div><!-- /.col -->
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-clock-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Pending</span>
-                    <span class="info-box-number">2,000</span>
+                    <span class="info-box-number">{{ application.stats.pending|number:0 }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div><!-- /.col -->
@@ -66,7 +66,7 @@
                             <tbody>
 
                             <tr ng-repeat="item in application.pending">
-                                <td><a href="#">{{ item.requestId }}</a></td>
+                                <td>{{ item.requestId }}</td>
                                 <td>{{ item.monthlyPayment | currency: 'IDR  ' }}</td>
                                 <td>{{ item.loanAmount | currency: 'IDR  ' }}</td>
                                 <td>{{ item.interestRate }}%</td>
@@ -99,23 +99,23 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Payment</th>
+                            <th>Monthly</th>
                             <th>Debt</th>
                             <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="#">OR9842</a></td>
-                            <td>IDR 150.000</td>
-                            <td>IDR 3.000.000</td>
-                            <td><span class="label label-success">Approved</span></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">OR9843</a></td>
-                            <td>IDR 150.000</td>
-                            <td>IDR 3.000.000</td>
-                            <td><span class="label label-danger">Rejected</span></td>
+                        <tr ng-repeat="item in application.top">
+                            <td>
+                                <a href="#/history/{{ item.requestId  }}">{{ item.requestId  }}</a>
+                            </td>
+                            <td>{{ item.monthlyPayment | currency: 'IDR  ' }}</td>
+                            <td>{{ item.loanAmount | currency: 'IDR  ' }}</td>
+                            <td>
+
+                                <span ng-show="item.isApproved==1" class="label label-success">Approved</span>
+                                <span ng-show="item.isApproved==0" class="label label-danger">Rejected</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

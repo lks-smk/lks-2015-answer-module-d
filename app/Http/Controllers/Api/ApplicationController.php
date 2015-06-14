@@ -10,6 +10,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Commands\ApplyCreditCommand;
+use App\Entities\Application;
 use App\Http\Controllers\Controller;
 use App\Repositories\ApplicationRepository;
 use App\Repositories\ApplicationRepositoryInterface;
@@ -42,6 +43,22 @@ class ApplicationController extends Controller {
 	public function index() {
 
 		return response()->json($this->repo->findPendingApplications());
+	}
+
+	/**
+	 * @param string $requestId
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @author Iqbal Maulana <iq.bluejack@gmail.com>
+	 */
+	public function show($requestId) {
+
+		/** @var Application $credit */
+		$credit         = $this->repo->findById($requestId);
+		$credit->debts  = $credit->debts()->findAll();
+
+		return response()->json($credit);
 	}
 
 	/**

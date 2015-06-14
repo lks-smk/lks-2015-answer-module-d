@@ -4,12 +4,6 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
-	"repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages.lkssmk2015.local"
-        }
-    ],
 	"require": {
 		"laravel/framework": "5.0.*"
 	},
