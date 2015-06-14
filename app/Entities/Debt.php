@@ -42,15 +42,14 @@ class Debt extends Entity {
      *
      * @var array
      */
-    protected $maps
-        = [
+    protected $maps = [
 
-            'detailId'      => 'detail_id',
-            'requestId'     => 'request_id',
-            'paymentDate'   => 'payment_date',
-            'paymentAmount' => 'payment_amount',
-            'principalDebt' => 'principal_debt'
-        ];
+        'detailId'      => 'detail_id',
+        'requestId'     => 'request_id',
+        'paymentDate'   => 'payment_date',
+        'paymentAmount' => 'payment_amount',
+        'principalDebt' => 'principal_debt'
+    ];
 
     /**
      * Apply debt credit
