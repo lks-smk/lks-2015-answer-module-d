@@ -27,6 +27,6 @@ Akun email
 email: sa@localhost
 password: opensource
 
-smtp / smpt host: localhost
-pop3 host: localhost
+smtp / smpt host: 127.0.0.1
+pop3 host: 127.0.0.1
 ```
