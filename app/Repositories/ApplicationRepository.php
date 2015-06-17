@@ -36,7 +36,7 @@ class ApplicationRepository extends Repository implements ApplicationRepositoryI
 	 */
 	public function findPendingApplications() {
 
-		return $this->model()->where('is_approved', -1)->get();
+		return $this->find([ 'is_approved' => -1 ]);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class ApplicationRepository extends Repository implements ApplicationRepositoryI
 	 */
 	public function findPendingApplicationById($id) {
 
-		return $this->model()->where('request_id', $id)->where('is_approved', -1)->first();
+		return $this->find([ 'request_id' => $id, 'is_approved' => -1 ])->first();
 	}
 
 	/**
