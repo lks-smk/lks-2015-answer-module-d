@@ -5,6 +5,7 @@
 
 var app = angular.module('koperasi.data', []);
 
+//define csrf token as constant from laravel
 app.constant('X_CSRF_TOKEN', angular.element('meta[name=X-CSRF-TOKEN]').attr('content'));
 
 /**
@@ -93,11 +94,11 @@ app.factory('creditFactory', ['$http', function ($http, X_CSRF_TOKEN) {
 			return $http.get('api/application/history', {
 
 				params: {
-					status: status,
-					"date[start]": date.start,
-					"date[end]": date.end,
-					"sort[field]": sort.field,
-					"sort[direction]": sort.direction
+					status              : status,
+					"date[start]"       : date.start,
+					"date[end]"         : date.end,
+					"sort[field]"       : sort.field,
+					"sort[direction]"   : sort.direction
 				}
 			});
 		},

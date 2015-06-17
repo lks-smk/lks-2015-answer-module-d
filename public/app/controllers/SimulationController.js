@@ -10,7 +10,7 @@ app.registerCtrl('SimulationController', ['$scope', '$route', 'simulationUi', 'c
 	/**
 	 * Handler when simulating
 	 *
-	 * @param credit
+	 * @param {{loanAmount: decimal, tenor: int}} credit
 	 */
 	$scope.simulation.calc = function (credit) {
 

@@ -2,7 +2,14 @@
  * @author      Iqbal Maulana <iq.bluejack@gmail.com>
  * @created     6/15/15
  */
-app.registerCtrl('DebtController', function ($scope, $routeParams, creditFactory, debtUi) {
+app.registerCtrl('DebtController',
+	/**
+	 * @param $scope
+	 * @param {{requestId: string}} $routeParams
+	 * @param creditFactory
+	 * @param debtUi
+	 */
+	function ($scope, $routeParams, creditFactory, debtUi) {
 
 	$scope.credit = {};
 

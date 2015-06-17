@@ -65,7 +65,10 @@ app.config(['$routeProvider', '$controllerProvider', function ($routeProvider, $
 	});
 }]);
 
-app.controller('sideBarController', function ($scope, $route) {
+/**
+ * Controller that handle side bar
+ */
+app.controller('SideBarController', function ($scope, $route) {
 
 	$scope.$route = $route;
 });

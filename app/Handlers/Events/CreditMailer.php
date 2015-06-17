@@ -30,12 +30,10 @@ trait CreditMailer {
      */
     public function mail(Application $application, $message) {
 
-        Mail::raw(
-            $message, function ($mail) use (&$application) {
+        Mail::raw($message, function ($mail) use (&$application) {
 
             $mail->from('sa@localhost', 'Your Credit Information');
             $mail->to($application->email);
-        }
-        );
+        });
     }
 }
