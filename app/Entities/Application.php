@@ -94,7 +94,7 @@ class Application extends Entity {
 
         if ($application->save()) {
 
-            $application->requestId = $requestId;
+            $application->requestId = (string) $requestId;
             Debt::applyDebt($application);
 
             return $application;
