@@ -111,6 +111,7 @@ app.service('statsUi', function () {
 	this.approveIncrement = function () {
 
 		++scope.application.stats.approved;
+		this.pendingDecrement();
 	};
 
 	/**
@@ -119,6 +120,15 @@ app.service('statsUi', function () {
 	this.rejectIncrement = function () {
 
 		++scope.application.stats.rejected;
+		this.pendingDecrement();
+	};
+
+	/**
+	 * Decrement pending stats
+	 */
+	this.pendingDecrement = function() {
+
+		--scope.application.stats.pending;
 	};
 
 	/**
@@ -231,6 +241,13 @@ app.service('debtUi', function () {
  */
 app.service('simulationUi', function () {
 
+	/**
+	 * @type {{
+	 *      calculatorForm  : Object,
+	 *      creditForm      : Object,
+	 *      simulation      : Object
+	 * }}
+	 */
 	var scope;
 
 	/**
