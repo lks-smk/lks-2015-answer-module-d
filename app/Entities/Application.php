@@ -72,6 +72,8 @@ class Application extends Entity {
     }
 
     /**
+     * Request apply credit
+     *
      * @param array $data
      *
      * @return Application
@@ -81,12 +83,12 @@ class Application extends Entity {
     public static function applyCredit(array $data) {
 
         $application = new Application();
-        $requestId   = Application::generateCode();
+        $requestId   = new RequestId();
 
         $application->fill($data);
         $application->setMonthlyPayment(2);
 
-        $application->requestId   = $requestId;
+        $application->requestId   = (string) $requestId;
         $application->isApproved  = Application::APPLICATION_STATUS_PENDING;
         $application->requestDate = (new \DateTime())->format('Y-m-d');
 
@@ -99,27 +101,6 @@ class Application extends Entity {
         }
 
         throw new \RuntimeException('Failed during apply credit.');
-    }
-
-    /**
-     * Generate request id code
-     *
-     * @return string
-     *
-     * @author Iqbal Maulana <iq.bluejack@gmail.com>
-     */
-    public static function generateCode() {
-
-        $last = Application::orderBy('request_id', 'desc')->first();
-        $num  = 0;
-
-        if ($last) {
-
-            $num = str_replace('OR', '', $last->requestId);
-            $num = (int)$num;
-        }
-
-        return sprintf('OR%04d', $num + 1);
     }
 
     /**
