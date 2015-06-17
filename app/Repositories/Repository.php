@@ -60,7 +60,7 @@ abstract class Repository implements RepositoryInterface {
             if (!$this->modelClass) {
 
                 throw new \RuntimeException(
-                    sprintf('There are not model class defined on repository "".', get_called_class())
+                    sprintf('There are not model class defined on repository "%s".', get_called_class())
                 );
             }
 
