@@ -59,5 +59,5 @@ interface ApplicationRepositoryInterface extends RepositoryInterface {
      *
      * @author Iqbal Maulana <iq.bluejack@gmail.com>
      */
-    public function findApplicationHistory($status, array $dates, array $sort);
+    public function findApplicationHistories($status, array $dates, array $sort);
 }

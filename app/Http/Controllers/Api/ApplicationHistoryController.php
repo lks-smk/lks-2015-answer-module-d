@@ -47,7 +47,7 @@ class ApplicationHistoryController extends Controller {
 
         try {
 
-            return response()->json($this->repo->findApplicationHistory($status, (array)$dates, (array)$sort));
+            return response()->json($this->repo->findApplicationHistories($status, (array)$dates, (array)$sort));
         } catch (\Exception $e) {
 
             return response()->json(['message' => $e->getMessage()]);
